@@ -3,7 +3,7 @@
 
 <style>
   body {font-family: arial; }
-  H1 {display: inline;}
+  H1 {display: inline; }
   .button {background-color: #4CAF50; /* Green */
            border: none;
            color: white;
@@ -28,9 +28,9 @@ function isMobile() {
   return regex.test(navigator.userAgent);
 }
 if (isMobile()) {console.log("Mobile device detected");
-		 mobile = True;}
+		 mobile = true;}
 else {console.log("Desktop device detected"); 
-      mobile = False;}
+      mobile = false;}
 
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
