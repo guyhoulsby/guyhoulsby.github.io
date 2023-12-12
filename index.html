@@ -18,8 +18,10 @@
 </style>
 
 <script type='text/javascript'
-    src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ArPM1-wZaL7eXbyDyv75z434nDeiThBHD-TQnHqoxxQwFdYQEcxc_WdyUA6vGl2O' async defer>
+        src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ArPM1-wZaL7eXbyDyv75z434nDeiThBHD-TQnHqoxxQwFdYQEcxc_WdyUA6vGl2O' async defer>
+</script>
 
+<script type='text/javascript'>
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
     map.setView({center: new Microsoft.Maps.Location(54.82, -4.19),
