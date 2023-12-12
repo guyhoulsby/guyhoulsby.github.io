@@ -292,12 +292,17 @@ function showError(error) {
     }
   }
 
-function ft1() {if (document.getElementById("t1").value.length == 3) {check();
+function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
 								      document.getElementById("t2").focus(); } }
-function ft2() {if (document.getElementById("t2").value.length == 3) {document.getElementById("t3").focus(); } }
-function ft3() {if (document.getElementById("t3").value.length == 3) {document.getElementById("t4").focus(); } }
-function ft4() {if (document.getElementById("t4").value.length == 3) {document.getElementById("t5").focus(); } }
-function ft5() {if (document.getElementById("t5").value.length == 3) {document.getElementById("t6").focus(); } }
+function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
+								      document.getElementById("t3").focus(); } }
+function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
+								      document.getElementById("t4").focus(); } }
+function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
+								      document.getElementById("t5").focus(); } }
+function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
+								      document.getElementById("t6").focus(); } }
+function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
 
 function check(tex) {     
 	i = -1;
@@ -392,7 +397,7 @@ Version: 1.5
     <td style="width:2%"><b>.</b></td>
     <td style="width:8%"><input type="text" id="t5" name="t5" maxlength=3 size=3 oninput=ft5()></td>
     <td style="width:2%"><b>.</b></td>
-    <td style="width:8%"><input type="text" id="t6" name="t6" maxlength=3 size=3></td>
+    <td style="width:8%"><input type="text" id="t6" name="t6" maxlength=3 size=3 oninput=ft6()></td>
     <td style="width:20%"><button onclick="test()" class="button button1">Put on map</button></td>
   </tr>
 </table>
@@ -406,7 +411,7 @@ Version: 1.5
 </table>
 <table style="width:100%">
   <tr>
-    <td style="width:50%"><input type="text" id="out_err" name="out_err" style="color:red">disabled></td>
+    <td style="width:50%"><input type="text" id="out_err" name="out_err" style="color:red" disabled></td>
   </tr>
 </table>
 <b>Click anywhere on the map to show code:</b>
