@@ -75,8 +75,8 @@ function getLocation() {
   else {x.innerHTML = "Geolocation is not supported by this browser.";}
   }
 function putPos(position) {
-  document.getElementById("out_me_lat").value = position.coords.latitude;
-  document.getElementById("out_me_lon").value = position.coords.longitude;
+  document.getElementById("out_me_lat").value = position.coords.latitude.toFixed(5);
+  document.getElementById("out_me_lon").value = position.coords.longitude.toFixed(5);
   encode(position.coords.latitude, position.coords.longitude);
   document.getElementById("out_me_hexcode").value = hexcode;
   document.getElementById("out_me_memcode").value = code;
@@ -281,11 +281,25 @@ function showError(error) {
       break;
     }
   }
+
+var t1 = document.getElementById("t1"),
+    t2 = document.getElementById("t2"),
+    t3 = document.getElementById("t3"),
+    t4 = document.getElementById("t4"),
+    t5 = document.getElementById("t5"),
+    t6 = document.getElementById("t6");
+
+t1.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t2.focus(); } }
+t2.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t3.focus(); } }
+t3.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t4.focus(); } }
+t4.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t5.focus(); } }
+t5.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t6.focus(); } }
+
 </script>
 
 <body>
 <h2>GTHcode</h2>
-Version: 1.4
+Version: 1.5
 <table style="width:100%">
   <tr>
     <td style=width:50%><b>MemCode from Lat,Long</b></td>
