@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+up<!DOCTYPE html>
 <html>
 
 <style>
@@ -289,11 +289,11 @@ var t1 = document.getElementById("t1"),
     t5 = document.getElementById("t5"),
     t6 = document.getElementById("t6");
 
-t1.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t2.focus(); } }
-t2.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t3.focus(); } }
-t3.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t4.focus(); } }
-t4.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t5.focus(); } }
-t5.oninput = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t6.focus(); } }
+t1.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t2.focus(); } }
+t2.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t3.focus(); } }
+t3.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t4.focus(); } }
+t4.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t5.focus(); } }
+t5.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t6.focus(); } }
 
 </script>
 
