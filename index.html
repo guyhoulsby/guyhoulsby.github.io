@@ -22,6 +22,14 @@ up<!DOCTYPE html>
 </script>
 
 <script type='text/javascript'>
+function isMobile() {
+  const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  return regex.test(navigator.userAgent);
+}
+
+if (isMobile()) {console.log("Mobile device detected"); }
+else {console.log("Desktop device detected"); }
+	
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
     map.setView({center: new Microsoft.Maps.Location(54.82, -4.19),
