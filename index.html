@@ -130,12 +130,17 @@ const words = ["ace","act","add","age", "aid","aim","air","all",
                "wig","win","wit","yes", "yet","you","zip","zoo"];
 
 function encode(lat, lon) {
+    lat = parseFloat(lat)
+    lon = parseFloat(lon)
+    if (lon >= 180.0) {lon -= 360.0}
     x = (parseFloat(lon) + 180.0) / 90.0;
     y = (parseFloat(lat) +  90.0) / 60.0;
     xi = Math.floor(x)%4;
     x -= Math.floor(x);
-    if (xi >= 2) {xi = 5 - xi}
-    q = xi.toString();
+    if (xi == 0) {q = "2"}
+    else if (xi == 1) {q = "0"}
+    else if (xi == 2) {q = "1"}
+    else {q = "3"}
     if (y < 1.0) 
        {q = q + "0";
         t = "ts"; }
@@ -213,9 +218,11 @@ function decode(memcode) {
     q = parseInt(hexcode, 16).toString(4);
     len = q.length;
     q = quadmask.substr(0,24-len) + q;
-    q0 = parseInt(q.substr(0,1)); // decode first digit
-    if (q0 >= 2) {q0 = 5 - q0} 
-    x = 90.0*q0 - 180.0;
+    q0 = q.substr(0,1);             // decode first digit
+    if (q0 == "2") {x = -180.0} 
+    else if (q0 == "0") {x = -90.0} 
+    else if (q0 == "1") {x = 0.0} 
+    else {"x" = 90.0} 
     xran = 90.0;
     yran = 60.0;
     q1 = parseInt(q.substr(1,1)); // decode second digit
@@ -374,6 +381,6 @@ function showError(error) {
 
 <b>Click anywhere on the map to show code:</b>
 <div id="myMap" style="position:relative;width:100%;height:50vh;"></div> <!-- width and height on screen -->
-Version: 1.2
+Version: 1.3
 </body>
 </html>
