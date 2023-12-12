@@ -34,8 +34,8 @@ else {console.log("Desktop device detected");
 
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
-    map.setView({center: new Microsoft.Maps.Location(54.82, -4.19),
-                 zoom: 10 });
+    map.setView({center: new Microsoft.Maps.Location(54.0, -2.0),
+                 zoom: 8 });
     Microsoft.Maps.Events.addHandler(map, 'click', function(e) // event handler for map click
 		              {console.log('Map clicked');
 		               document.getElementById("out_map_lat").value = e.location.latitude.toFixed(5);		
