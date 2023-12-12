@@ -282,19 +282,11 @@ function showError(error) {
     }
   }
 
-var t1 = document.getElementById("t1"),
-    t2 = document.getElementById("t2"),
-    t3 = document.getElementById("t3"),
-    t4 = document.getElementById("t4"),
-    t5 = document.getElementById("t5"),
-    t6 = document.getElementById("t6");
-
 function ft1() {if (document.getElementById("t1").value.length == 3) {document.getElementById("t2").focus(); } }
-//t1.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t2.focus(); } }
-//t2.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t3.focus(); } }
-//t3.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t4.focus(); } }
-//t4.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t5.focus(); } }
-//t5.onkeyup = function() {if (this.value.length === parseInt(this.attributes["maxlength"].value)) {t6.focus(); } }
+function ft1() {if (document.getElementById("t2").value.length == 3) {document.getElementById("t3").focus(); } }
+function ft1() {if (document.getElementById("t3").value.length == 3) {document.getElementById("t4").focus(); } }
+function ft1() {if (document.getElementById("t4").value.length == 3) {document.getElementById("t5").focus(); } }
+function ft1() {if (document.getElementById("t5").value.length == 3) {document.getElementById("t6").focus(); } }
 
 </script>
 
@@ -374,13 +366,13 @@ Version: 1.5
   <tr>
     <td style="width:8%"><input type="text" id="t1" name="t1" maxlength=3 size=3 oninput=ft1()></td>
     <td style="width:2%"><b>.</b></td>
-    <td style="width:8%"><input type="text" id="t2" name="t2" maxlength=3 size=3></td>
+    <td style="width:8%"><input type="text" id="t2" name="t2" maxlength=3 size=3 oninput=ft2()></td>
     <td style="width:2%"><b>.</b></td>
-    <td style="width:8%"><input type="text" id="t3" name="t3" maxlength=3 size=3></td>
+    <td style="width:8%"><input type="text" id="t3" name="t3" maxlength=3 size=3 oninput=ft3()></td>
     <td style="width:2%"><b>-</b></td>
-    <td style="width:8%"><input type="text" id="t4" name="t4" maxlength=3 size=3></td>
+    <td style="width:8%"><input type="text" id="t4" name="t4" maxlength=3 size=3 oninput=ft4()></td>
     <td style="width:2%"><b>.</b></td>
-    <td style="width:8%"><input type="text" id="t5" name="t5" maxlength=3 size=3></td>
+    <td style="width:8%"><input type="text" id="t5" name="t5" maxlength=3 size=3 oninput=ft5()></td>
     <td style="width:2%"><b>.</b></td>
     <td style="width:8%"><input type="text" id="t6" name="t6" maxlength=3 size=3></td>
     <td style="width:20%"><button onclick="test()" class="button button1">Put on map</button></td>
