@@ -217,7 +217,7 @@ function encode(lat, lon) {
 function decode(memcode) {
     hexcode = ""; // convert memcode to hexcode
     for (let i = 0; i < 6; i++) 
-        {tex = memcode.substr(4*i,3);
+        {tex = memcode.substr(4*i,3).toLowerCase();
          for (let j = 0; j < 256; j++) 
              {if (tex == words[j]) 
                  {if (j.toString(16).length == 1) {hexcode += "0"};
@@ -292,12 +292,20 @@ function showError(error) {
     }
   }
 
-function ft1() {if (document.getElementById("t1").value.length == 3) {document.getElementById("t2").focus(); } }
+function ft1() {if (document.getElementById("t1").value.length == 3) {check();
+								      document.getElementById("t2").focus(); } }
 function ft2() {if (document.getElementById("t2").value.length == 3) {document.getElementById("t3").focus(); } }
 function ft3() {if (document.getElementById("t3").value.length == 3) {document.getElementById("t4").focus(); } }
 function ft4() {if (document.getElementById("t4").value.length == 3) {document.getElementById("t5").focus(); } }
 function ft5() {if (document.getElementById("t5").value.length == 3) {document.getElementById("t6").focus(); } }
 
+function check(tex) {     
+	i = -1;
+	for (let j = 0; j < 256; j++) 
+             {if (tex.toLowerCase() == words[j]) {i=1; } }
+  if (i == -1) {document.getElementById("out_err").value = "Word not found"}
+  else {document.getElementById("out_err").value = ""}
+}
 </script>
 
 <body>
@@ -396,7 +404,11 @@ Version: 1.5
     <td style="width:30%"><input type="text" id="out_mapc_lon" name="out_mapc_lon" disabled></td>
   </tr>
 </table>
-
+<table style="width:100%">
+  <tr>
+    <td style="width:50%"><input type="text" id="out_err" name="out_err" style="color:red">disabled></td>
+  </tr>
+</table>
 <b>Click anywhere on the map to show code:</b>
 <div id="myMap" style="position:relative;width:100%;height:50vh;"></div> <!-- width and height on screen -->
 </body>
