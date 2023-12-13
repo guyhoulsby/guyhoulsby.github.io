@@ -35,7 +35,7 @@ else {console.log("Desktop device detected");
 function reporttype() {
 	if (mobile) {document.getElementById("out_err").value = "Mobile device";}
         else {document.getElementById("out_err").value = "Desktop device";} }
-document.addEventListener("DOMContentLoaded", reporttype());
+//document.addEventListener("DOMContentLoaded", reporttype());
 //window.onload = reporttype()
 </script>
 
@@ -317,7 +317,7 @@ function check(tex) {
 }
 </script>
 
-<body onload=""reporttype();>
+<body>
 <H2>GTHcode</H2>
 Version: 1.7
 <!--<table style="width:100%">
@@ -420,5 +420,8 @@ Version: 1.7
 </table>
 <b>Click anywhere on the map to show code:</b>
 <div id="myMap" style="position:relative;width:100%;height:50vh;"></div> <!-- width and height on screen -->
+<script type="text/javascript">
+    reporttype();
+</script>
 </body>
 </html>
