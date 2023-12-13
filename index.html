@@ -28,9 +28,11 @@ function isMobile() {
   return regex.test(navigator.userAgent);
 }
 if (isMobile()) {console.log("Mobile device detected");
-		 mobile = true;}
+		 mobile = true;
+                 document.getElementById("out_err").value = "Mobile device";}
 else {console.log("Desktop device detected"); 
-      mobile = false;}
+      mobile = false;
+      document.getElementById("out_err").value = "Desktop device";}}
 
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
@@ -64,6 +66,7 @@ function test() {
   loc = new Microsoft.Maps.Location(lat, lon)
   pincode = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
                                        {title: memcode,
+                                        color: "blue",
                                         text: 'C' } );
   map.entities.push(pincode);  //Add the pushpin to the map
   map.setView({center: loc});
@@ -97,6 +100,7 @@ function putPos(position) {
                                     document.getElementById("out_me_lon").value)
   pinme = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
                                      {title: code,
+                                      color: "red",
                                       text: 'M' } );
   map.entities.push(pinme);  //Add the pushpin to the map
   map.setView({center: loc,  //Recentre map to me
