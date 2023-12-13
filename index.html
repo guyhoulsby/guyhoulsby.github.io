@@ -36,7 +36,7 @@ function reporttype() {
 	if (mobile) {document.getElementById("out_err").value = "Mobile device";}
         else {document.getElementById("out_err").value = "Desktop device";} }
 
-	window.onload = reporttype()
+//window.onload = reporttype()
 </script>
 
 <script type='text/javascript'>
@@ -323,7 +323,7 @@ function check(tex) {
 }
 </script>
 
-<body>
+<body onload=""reporttype();>
 <H2>GTHcode</H2>
 Version: 1.5
 <table style="width:100%">
