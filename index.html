@@ -55,7 +55,8 @@ function GetMap() {
                                catch {}
                                pin = new Microsoft.Maps.Pushpin(e.location,  //Create custom Pushpin
                                                                     {title: code,
-                                                                     text: '1' } );
+								     color = "green",
+                                                                     text: 'C' } );
                                map.entities.push(pin); }); //Add the pushpin to the map
     }
 	
@@ -73,7 +74,7 @@ function test() {
   pincode = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
                                        {title: memcode,
                                         color: "blue",
-                                        text: 'C' } );
+                                        text: 'D' } );
   map.entities.push(pincode);  //Add the pushpin to the map
   map.setView({center: loc});
   document.getElementById("out_mapc_lat").value = lat.toFixed(5);
@@ -186,8 +187,7 @@ function encode(lat, lon) {
                 xi = Math.floor(x) + 1;
                 q = q + xi.toString();
                 x -= Math.floor(x);
-                t = "q"; } 
-           }
+                t = "q"; } }
         else if (t == "tn") 
            {if (y >= 0.5) 
                {y = 2.0*y - 1.0;
@@ -198,16 +198,14 @@ function encode(lat, lon) {
                 xi = Math.floor(x);
                 q = q + xi.toString();
                 x -= Math.floor(x);
-                t = "q"; } 
-           }
+                t = "q"; } }
         else 
            {x = 2.0*x;
             y = 2.0*y;
             ci = Math.floor(x) + 2*Math.floor(y);
             q = q + ci.toString();
             x -= Math.floor(x);
-            y -= Math.floor(y); }
-        }
+            y -= Math.floor(y); } }
     hexmask = "000000000000";
     hexcode = parseInt(q, 4).toString(16);
     len = hexcode.length;
@@ -220,8 +218,7 @@ function encode(lat, lon) {
         if (i == 1) {code += "."} 
         if (i == 2) {code += "-"} 
         if (i == 3) {code += "."} 
-        if (i == 4) {code += "."} 
-    }
+        if (i == 4) {code += "."} }
   }
 
 function decode(memcode) {
@@ -264,23 +261,20 @@ function decode(memcode) {
                {xran = 30.0;
                 x += xran*(qi - 1);
                 y += yran;
-                t = "q"; }
-           }
+                t = "q"; } }
         else if (t == "tn") 
                 {if (qi == 3) 
                     {y += yran; }
                  else 
                     {xran = 30.0;
                      x += xran*qi;
-                     t = "q"; }
-                } 
+                     t = "q"; } } 
         else 
            {xran = 0.5*xran;
             yi = Math.floor(qi / 2);
             xi = qi - 2*yi;
             y += yran*yi;
-            x += xran*xi; }
-        }
+            x += xran*xi; } }
     lon = x + 0.5*xran;
     lat = y + 0.5*yran;
   }
