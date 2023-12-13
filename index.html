@@ -22,16 +22,21 @@
         src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ArPM1-wZaL7eXbyDyv75z434nDeiThBHD-TQnHqoxxQwFdYQEcxc_WdyUA6vGl2O' async defer>
 </script>
 
-<script type='text/javascript' defer>
+<script type='text/javascript'>
 function isMobile() {
   const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
   return regex.test(navigator.userAgent); }
+	
 if (isMobile()) {console.log("Mobile device detected");
-		 mobile = true;
-                 document.getElementById("out_err").value = "Mobile device";}
+		 mobile = true;}
 else {console.log("Desktop device detected"); 
-      mobile = false;
-      document.getElementById("out_err").value = "Desktop device";}
+      mobile = false;}
+	
+funtion reporttype() {
+	if (mobile) {document.getElementById("out_err").value = "Mobile device";}
+        else {document.getElementById("out_err").value = "Desktop device";} }
+
+	window.onload = reporttype()
 </script>
 
 <script type='text/javascript'>
