@@ -1,1 +1,356 @@
-<html></html>
+<!DOCTYPE html>
+<html>
+
+<style>
+  body {font-family: arial; }
+  H2 {display: inline; }
+  .button {background-color: #4CAF50; /* Green */
+           border: none;
+           color: white;
+           padding: 10px 10px;
+           text-align: center;
+           text-decoration: none;
+           display: inline-block;
+           font-size: 16px;
+           margin: 0px 0px;
+           cursor: pointer; }
+  .button1 {width: 160px;
+            height: 34px; }
+</style>
+
+<script type='text/javascript'
+        src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ArPM1-wZaL7eXbyDyv75z434nDeiThBHD-TQnHqoxxQwFdYQEcxc_WdyUA6vGl2O' async defer>
+</script>
+
+<script type='text/javascript'>
+function isMobile() {
+  const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  return regex.test(navigator.userAgent); }
+	
+if (isMobile()) {console.log("Mobile device detected");
+		 mobile = true;}
+else {console.log("Desktop device detected"); 
+      mobile = false;}
+	
+function reporttype() {
+	if (mobile) {document.getElementById("out_err").value = "Mobile device";}
+        else {document.getElementById("out_err").value = "Desktop device";} }
+//document.addEventListener("DOMContentLoaded", reporttype());
+//window.onload = reporttype()
+</script>
+
+<script type='text/javascript'>
+function GetMap() {
+    map = new Microsoft.Maps.Map('#myMap');
+    map.setView({center: new Microsoft.Maps.Location(54.0, -2.0),
+                 zoom: 8 });
+    Microsoft.Maps.Events.addHandler(map, 'click', function(e) // event handler for map click
+		              {console.log('Map clicked');
+		               document.getElementById("out_map_lat").value = e.location.latitude.toFixed(5);		
+	                       document.getElementById("out_map_lon").value = e.location.longitude.toFixed(5);
+                               encode(e.location.latitude, e.location.longitude);
+                               document.getElementById("out_map_hexcode").value = hexcode;
+                               document.getElementById("out_map_memcode").value = code;
+                               try {map.entities.remove(pin);} // delete old pin if it exists
+                               catch {}
+                               pin = new Microsoft.Maps.Pushpin(e.location,  //Create custom Pushpin
+                                                                    {title: code,
+								     color: "green",
+                                                                     text: 'C' } );
+                               map.entities.push(pin); }); //Add the pushpin to the map
+    }
+	
+function test() {
+  memcode = document.getElementById("t1").value + "." +
+            document.getElementById("t2").value + "." +
+            document.getElementById("t3").value + "-" +
+            document.getElementById("t4").value + "." +
+            document.getElementById("t5").value + "." +
+            document.getElementById("t6").value;
+  decode(memcode);
+  try {map.entities.remove(pincode);} // delete old pin if it exists
+  catch {}
+  loc = new Microsoft.Maps.Location(lat, lon)
+  pincode = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
+                                       {title: memcode,
+                                        color: "blue",
+                                        text: 'D' } );
+  map.entities.push(pincode);  //Add the pushpin to the map
+  map.setView({center: loc});
+  document.getElementById("out_mapc_lat").value = lat.toFixed(5);
+  document.getElementById("out_mapc_lon").value = lon.toFixed(5); 
+  } 
+
+function getmemcode() {
+  encode(document.getElementById("in_lat").value, document.getElementById("in_lon").value);
+  document.getElementById("out_mem").value = code; }
+
+function getlatlong() {
+  decode(document.getElementById("in_mem").value);
+  document.getElementById("out_lat").value  = lat.toFixed(5);
+  document.getElementById("out_lon").value = lon.toFixed(5); }
+
+function getLocation() {
+  if (navigator.geolocation) {navigator.geolocation.getCurrentPosition(putPos, showError);} 
+  else {x.innerHTML = "Geolocation is not supported by this browser.";}
+  }
+function putPos(position) {
+  document.getElementById("out_me_lat").value = position.coords.latitude.toFixed(5);
+  document.getElementById("out_me_lon").value = position.coords.longitude.toFixed(5);
+  encode(position.coords.latitude, position.coords.longitude);
+  document.getElementById("out_me_hexcode").value = hexcode;
+  document.getElementById("out_me_memcode").value = code;
+
+  try {map.entities.remove(pinme);} // delete old pin if it exists
+  catch {}
+  loc = new Microsoft.Maps.Location(document.getElementById("out_me_lat").value, 
+                                    document.getElementById("out_me_lon").value)
+  pinme = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
+                                     {title: code,
+                                      color: "red",
+                                      text: 'M' } );
+  map.entities.push(pinme);  //Add the pushpin to the map
+  map.setView({center: loc,  //Recentre map to me
+               zoom: 10 });
+  }
+
+const words = ["ace","act","add","age", "aid","aim","air","all",
+               "and","ant","ape","arm", "art","ash","ask","ate",
+               "bad","bag","bar","bat", "bay","bed","beg","bet",
+               "bid","big","bin","bit", "box","boy","bun","bus",
+               "can","cap","car","cat", "cod","cot","cow","cry",
+               "cup","cut","dab","day", "den","did","dim","dip",
+               "dog","don","dry","dug", "ear","eat","egg","elf",
+               "eel","end","eve","fan", "far","fat","fed","fee",
+
+               "fen","few","fig","fin", "fit","fix","fly","fog",
+               "for","fox","fry","fun", "gap","gas","get","gin",
+               "got","gum","gym","had", "ham","has","hat","hay",
+               "hem","hen","hid","him", "hip","hit","hog","hop",
+               "hot","how","hub","hug", "hum","hut","ice","ill",
+               "imp","ink","jam","jar", "jaw","jay","jet","job",
+               "jog","joy","jug","key", "kid","kit","lab","lad",
+               "lag","lap","law","lay", "leg","let","lid","lie",
+
+               "lip","lit","log","lot", "low","mad","man","map",
+               "mat","may","men","mix", "mob","mop","mud","mug",
+               "nap","net","new","nip", "nod","not","now","nut",
+               "oak","odd","off","oil", "old","one","orb","our",
+               "out","owe","owl","own", "pad","pan","pat","paw",
+               "pay","peg","pen","pet", "pin","pit","pod","pop",
+               "pot","pub","pun","put", "rag","ram","ran","rap",
+               "rat","raw","ray","red", "rib","rid","rig","rim",
+
+               "rip","rob","rod","rot", "rub","rug","rum","run",
+               "sad","sag","sap","sat", "saw","say","set","she",
+               "shy","sin","sip","sir", "sit","six","ski","sky",
+               "sly","spy","sum","sun", "tab","tag","tan","tap",
+               "tar","tax","tea","ten", "the","tie","tin","tip",
+               "tom","top","toy","try", "tub","use","van","vat",
+               "vet","war","was","wax", "way","web","who","why",
+               "wig","win","wit","yes", "yet","you","zip","zoo"];
+
+function encode(lat, lon) {
+    lat = parseFloat(lat)
+    lon = parseFloat(lon)
+    if (lon >= 180.0) {lon -= 360.0}
+    x = (parseFloat(lon) + 180.0) / 90.0;
+    y = (parseFloat(lat) +  90.0) / 60.0;
+    xi = Math.floor(x)%4;
+    x -= Math.floor(x);
+    if (xi == 0) {q = "2"}
+    else if (xi == 1) {q = "0"}
+    else if (xi == 2) {q = "1"}
+    else {q = "3"}
+    if (y < 1.0) 
+       {q = q + "0";
+        t = "ts"; }
+    else if (y >= 2.0) 
+       {q = q + "3";
+        y -= 2.0;
+        t = "tn"; }
+    else 
+       {x = 2.0*x;
+        xi = Math.floor(x) + 1;
+        q = q + xi.toString();    
+        x -= Math.floor(x);
+        y -= 1.0;
+        t = "q"; }
+    for (let i = 0; i < 22; i++) { // code the remaining 22 digits
+        if (t == "ts") 
+           {if (y < 0.5) 
+               {y = 2.0*y;
+                q = q + "0"; }
+            else 
+               {x = 3.0*x;
+                y = 2.0*y - 1.0;
+                xi = Math.floor(x) + 1;
+                q = q + xi.toString();
+                x -= Math.floor(x);
+                t = "q"; } }
+        else if (t == "tn") 
+           {if (y >= 0.5) 
+               {y = 2.0*y - 1.0;
+                q = q + "3"; }
+            else 
+               {x = 3.0*x;
+                y = 2.0*y;
+                xi = Math.floor(x);
+                q = q + xi.toString();
+                x -= Math.floor(x);
+                t = "q"; } }
+        else 
+           {x = 2.0*x;
+            y = 2.0*y;
+            ci = Math.floor(x) + 2*Math.floor(y);
+            q = q + ci.toString();
+            x -= Math.floor(x);
+            y -= Math.floor(y); } }
+    hexmask = "000000000000";
+    hexcode = parseInt(q, 4).toString(16);
+    len = hexcode.length;
+    hexcode = hexmask.substr(0,12-len) + hexcode;
+    code = "";
+    for (let i = 0; i < 6; i++) 
+       {num = parseInt(hexcode.substr(2*i,2),16);
+        code += words[num];
+        if (i == 0) {code += "."} 
+        if (i == 1) {code += "."} 
+        if (i == 2) {code += "-"} 
+        if (i == 3) {code += "."} 
+        if (i == 4) {code += "."} }
+  }
+
+function decode(memcode) {
+    hexcode = ""; // convert memcode to hexcode
+    for (let i = 0; i < 6; i++) 
+        {tex = memcode.substr(4*i,3).toLowerCase();
+         for (let j = 0; j < 256; j++) 
+             {if (tex == words[j]) 
+                 {if (j.toString(16).length == 1) {hexcode += "0"};
+                  hexcode += j.toString(16);}
+             } 
+        }
+    quadmask = "000000000000000000000000"; // convert hexcode to quadcode q
+    q = parseInt(hexcode, 16).toString(4);
+    len = q.length;
+    q = quadmask.substr(0,24-len) + q;
+    q0 = q.substr(0,1);             // decode first digit
+    if (q0 == "2") {x = -180.0} 
+    else if (q0 == "0") {x = -90.0} 
+    else if (q0 == "1") {x = 0.0} 
+    else {x = 90.0} 
+    xran = 90.0;
+    yran = 60.0;
+    q1 = parseInt(q.substr(1,1)); // decode second digit
+    if (q1 == 0) {y = -90.0;
+                  t = "ts"; }
+    else if (q1 == 3) {y = 30.0;
+                       t = "tn"; }
+    else {x += 45.0*(q1 - 1);
+          y = -30.0;
+          xran = 45.0;
+          t = "q"; }
+    for (let i = 0; i < 22; i++) { // decode the remaining 22 digits
+        yran = 0.5*yran;
+        qi = parseInt(q.substr(2+i,1));
+        if (t == "ts") 
+           {if (qi == 0) 
+               {}
+            else 
+               {xran = 30.0;
+                x += xran*(qi - 1);
+                y += yran;
+                t = "q"; } }
+        else if (t == "tn") 
+                {if (qi == 3) 
+                    {y += yran; }
+                 else 
+                    {xran = 30.0;
+                     x += xran*qi;
+                     t = "q"; } } 
+        else 
+           {xran = 0.5*xran;
+            yi = Math.floor(qi / 2);
+            xi = qi - 2*yi;
+            y += yran*yi;
+            x += xran*xi; } }
+    lon = x + 0.5*xran;
+    lat = y + 0.5*yran;
+  }
+
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+    }
+  }
+
+function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
+								      document.getElementById("t2").focus(); } }
+function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
+								      document.getElementById("t3").focus(); } }
+function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
+								      document.getElementById("t4").focus(); } }
+function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
+								      document.getElementById("t5").focus(); } }
+function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
+								      document.getElementById("t6").focus(); } }
+function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
+
+function check(tex) {     
+	i = -1;
+	for (let j = 0; j < 256; j++) 
+             {if (tex.toLowerCase() == words[j]) {i=1; } }
+  if (i == -1) {document.getElementById("out_err").value = "Word not found"}
+  else {document.getElementById("out_err").value = ""}
+}
+</script>
+
+<body>
+<H2>GTHcode</H2>
+Version: 1.7
+<p>Convert from MemCode to Lat,Long and <i>vice versa</i>.</p>
+<!--<table style="width:100%">
+  <tr>
+    <td style=width:50%><b>MemCode from Lat,Long</b></td>
+    <td style=width:50%><b>Lat,Long from MemCode</b></td>
+  </tr>
+</table>
+<table style="width:100%">
+  <tr>
+    <td style="width:20%"><label for="in_lat">Latitude:</label></td>
+    <td style="width:30%"><input type="text" id="in_lat" name="in_lat"></td>
+    <td><label for="out_lat">Latitude:</label></td>
+    <td><input type="text" id="out_lat" name="out_lat" disabled></td>
+  </tr>
+  <tr>
+    <td><label for="in_lon">Longitude:</label></td>
+    <td><input type="text" id="in_lon" name="in_lon"></td>
+    <td><label for="out_lon">Longitude:</label></td>
+    <td><input type="text" id="out_lon" name="out_lon" disabled></td>
+  </tr>
+  <tr>
+    <td><label for="out_mem">MemCode:</label></td>
+    <td><input type="text" id="out_mem" name="out_mem" disabled></td>
+    <td style="width:20%"><label for="in_mem">MemCode:</label></td>
+    <td style="width:30%"><input type="text" id="in_mem" name="in_mem"></td>
+  </tr>
+    <td></td>
+    <td><button onclick="getmemcode()" class="button button1">Get MemCode</button></td>
+    <td></td>
+    <td><button onclick="getlatlong()" class="button button1">Get Lat,Long</button></td>
+  </tr>
+</table>
+</body>
+</html>
