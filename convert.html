@@ -296,32 +296,14 @@ function showError(error) {
     }
   }
 
-function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
-								      document.getElementById("t2").focus(); } }
-function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
-								      document.getElementById("t3").focus(); } }
-function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
-								      document.getElementById("t4").focus(); } }
-function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
-								      document.getElementById("t5").focus(); } }
-function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
-								      document.getElementById("t6").focus(); } }
-function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
 
-function check(tex) {     
-	i = -1;
-	for (let j = 0; j < 256; j++) 
-             {if (tex.toLowerCase() == words[j]) {i=1; } }
-  if (i == -1) {document.getElementById("out_err").value = "Word not found"}
-  else {document.getElementById("out_err").value = ""}
-}
 </script>
 
 <body>
 <H2>GTHcode</H2>
 Version: 1.7
 <p>Convert from MemCode to Lat,Long and <i>vice versa</i>.</p>
-<!--<table style="width:100%">
+<table style="width:100%">
   <tr>
     <td style=width:50%><b>MemCode from Lat,Long</b></td>
     <td style=width:50%><b>Lat,Long from MemCode</b></td>
