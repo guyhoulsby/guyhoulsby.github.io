@@ -71,8 +71,8 @@ function test() {
             document.getElementById("t5").value + "." +
             document.getElementById("t6").value;
   decode(memcode);
-  if (memcode == "none") {document.getElementById("out_err").value = "Location not found";
-                          return;}
+  if (! found) {document.getElementById("out_err").value = "Location not found";
+                return;}
   try {map.entities.remove(pincode);} // delete old pin if it exists
   catch {}
   loc = new Microsoft.Maps.Location(lat, lon)
@@ -237,8 +237,7 @@ function decode(memcode) {
                   hexcode += j.toString(16);
 		  found = true;}
              } 
-         if (!found) {memcode = "none";
-  	              return "none";}
+         if (!found) {return "none";}
         }
     quadmask = "000000000000000000000000"; // convert hexcode to quadcode q
     q = parseInt(hexcode, 16).toString(4);
