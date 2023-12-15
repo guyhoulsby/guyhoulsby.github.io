@@ -22,7 +22,8 @@
   .inmem {type: "text";
 	  maxlength: 3;
           size: 3; 
-	  font-size: 18px}
+	  font-size: 18px
+	  width: 20%}
 	
 </style>
 
@@ -405,15 +406,16 @@ Version: 1.8
 <table>
   <tr>
     <td style="width:50%">
-	    <input class="inmem" id="t1" name="t1" oninput=ft1()><b> . </b>
-    <input type="text" id="t2" name="t2" maxlength=3 size=3 oninput=ft2()><b> . </b>
-    <input type="text" id="t3" name="t3" maxlength=3 size=3 oninput=ft3()><b> -</b></td>
+        <input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
+        <input class="inmem"  id="t2" name="t2" oninput=ft2()> <b>.</b>
+        <input class="inmem"  id="t3" name="t3" oninput=ft3()> <b>-</b></td>
   </tr>
   <tr>
-    <td style="width:50%"><input type="text" id="t4" name="t4" maxlength=3 size=3 oninput=ft4()><b> . </b>
-    <input type="text" id="t5" name="t5" maxlength=3 size=3 oninput=ft5()><b> . </b>
-    <input type="text" id="t6" name="t6" maxlength=3 size=3 oninput=ft6()> 
-	    <button onclick="test()" class="button button1">Put on map</button></td>
+    <td style="width:50%">
+	<input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
+        <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
+        <input class="inmem" id="t6" name="t6" oninput=ft6()> 
+	<button class="button button1" onclick="test()">Put on map</button></td>
   </tr>
 </table>
 <table style="width:100%">
