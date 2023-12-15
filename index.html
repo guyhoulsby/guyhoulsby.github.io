@@ -342,7 +342,7 @@ Version: 1.8
   </tr>
 </table>
 <table style="width:100%">
-<!--  <tr>
+<tr>
     <td style="width:20%"><label for="in_lat">Latitude:</label></td>
     <td style="width:30%"><input type="text" id="in_lat" name="in_lat"></td>
     <td><label for="out_lat">Latitude:</label></td>
@@ -360,12 +360,7 @@ Version: 1.8
     <td style="width:20%"><label for="in_mem">MemCode:</label></td>
     <td style="width:30%"><input type="text" id="in_mem" name="in_mem"></td>
   </tr>
-    <td></td>
-    <td><button onclick="getmemcode()" class="button button1">Get MemCode</button></td>
-    <td></td>
-    <td><button onclick="getlatlong()" class="button button1">Get Lat,Long</button></td>
-  </tr>
-</table>-->
+</table>
 <table style="width:100%">
   <tr>
     <td style="width:50%"><b>Map coordinates</b></td>
@@ -401,15 +396,20 @@ Version: 1.8
     <td></td>
     <td></td>
     <td></td>
+  </tr>-->
+<table>
+ <tr>
+    <td><button onclick="getmemcode()" class="button button1">Get MemCode</button></td>
+    <td><button onclick="getlatlong()" class="button button1">Get Lat,Long</button></td>
     <td><button onclick="getLocation()" class="button button1">Get my location</button></td>
   </tr>
 </table>
-<table style="width:100%">
+<table style="width:100vw">
   <tr>
     <td>
         <input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
-        <input class="inmem"  id="t2" name="t2" oninput=ft2()> <b>.</b>
-        <input class="inmem"  id="t3" name="t3" oninput=ft3()> <b>-</b></td>
+        <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
+        <input class="inmem" id="t3" name="t3" oninput=ft3()> <b>-</b></td>
   </tr>
   <tr>
     <td>
@@ -418,6 +418,8 @@ Version: 1.8
         <input class="inmem" id="t6" name="t6" oninput=ft6()> 
 	<button class="button button1" onclick="test()">Put on map</button></td>
   </tr>
+</table>
+<table style="width:100%">
   <tr>
     <td style="width:20%"><label for="out_mem">MemCode:</label></td>
     <td style="width:20%"><input type="text" id="out_mem" name="out_mem"></td>
