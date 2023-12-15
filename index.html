@@ -21,7 +21,7 @@
   .button1 {width: 160px;
             height: 34px; }
   .inmem {type: "text";
-	  text-align: center;
+	  align: middle;
 	  maxlength: 3;
           width: 10vw;
 //	  size: 3; 
@@ -121,6 +121,7 @@ function putPos(position) {
   document.getElementById("out_lat").value = position.coords.latitude.toFixed(5);
   document.getElementById("out_lon").value = position.coords.longitude.toFixed(5);
   encode(position.coords.latitude, position.coords.longitude);
+  document.getElementById("out_mem").value = memcode;
   document.getElementById("out_hex").value = hexcode;
   putmem();
   try {map.entities.remove(pinme);} // delete old pin if it exists
@@ -128,7 +129,7 @@ function putPos(position) {
   loc = new Microsoft.Maps.Location(document.getElementById("out_lat").value, 
                                     document.getElementById("out_lon").value)
   pinme = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
-                                     {title: code,
+                                     {title: memcode,
                                       color: "red",
                                       text: 'M' } );
   map.entities.push(pinme);  //Add the pushpin to the map
@@ -425,7 +426,7 @@ Version: 1.8
 	<button class="button button1" onclick="test()">Put on map</button></td>
   </tr>
 </table>
-<table style="width:100%">
+<table>
   <tr>
     <td style="width:10%"><label for="out_mem">MemCode:</label></td>
     <td style="width:20%"><input type="text" id="out_mem" name="out_mem"></td>
