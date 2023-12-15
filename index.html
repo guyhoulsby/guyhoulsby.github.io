@@ -68,15 +68,23 @@ function GetMap() {
                                                                      text: 'C' } );
                                map.entities.push(pin); }); //Add the pushpin to the map
     }
-	
-function test() {
+function buildmem() {
   memcode = document.getElementById("t1").value.toLowerCase() + "." +
             document.getElementById("t2").value.toLowerCase() + "." +
             document.getElementById("t3").value.toLowerCase() + "-" +
             document.getElementById("t4").value.toLowerCase() + "." +
             document.getElementById("t5").value.toLowerCase() + "." +
-            document.getElementById("t6").value.toLowerCase();
-  decode(memcode);
+            document.getElementById("t6").value.toLowerCase(); }
+function putmem() {
+	document.getElementById("t1").value = memcode.substr(0,3);
+	document.getElementById("t1").value = memcode.substr(4,3);
+	document.getElementById("t1").value = memcode.substr(8,3);
+	document.getElementById("t1").value = memcode.substr(12,3);
+	document.getElementById("t1").value = memcode.substr(16,3);
+	document.getElementById("t1").value = memcode.substr(20,3); }
+ 
+function test() {
+  buildmem();
   if (! found) {document.getElementById("out_err").value = "Location not found";
                 return;}
   try {map.entities.remove(pincode);} // delete old pin if it exists
@@ -88,31 +96,32 @@ function test() {
                                         text: 'D' } );
   map.entities.push(pincode);  //Add the pushpin to the map
   map.setView({center: loc});
+  document.getElementById("out_hex").value = hexcode;
   document.getElementById("out_lat").value = lat.toFixed(5);
   document.getElementById("out_lon").value = lon.toFixed(5); 
   } 
 
 function getmemcode() {
   encode(document.getElementById("out_lat").value, document.getElementById("out_lon").value);
-  document.getElementById("out_mem").value = code; }
+  putmem();
+  document.getElementById("out_hex").value = hexcode; }
 
 function getlatlong() {
-  decode(document.getElementById("out_mem").value);
-  document.getElementById("out_lat").value  = lat.toFixed(5);
+  buildmem();
+  document.getElementById("out_hex").value = hexcode;
+  document.getElementById("out_lat").value = lat.toFixed(5);
   document.getElementById("out_lon").value = lon.toFixed(5); }
 
 function getLocation() {
   if (navigator.geolocation) {navigator.geolocation.getCurrentPosition(putPos, showError);} 
-  else {x.innerHTML = "Geolocation is not supported by this browser.";}
-  }
+  else {x.innerHTML = "Geolocation is not supported by this browser.";} }
 	
 function putPos(position) {
   document.getElementById("out_lat").value = position.coords.latitude.toFixed(5);
   document.getElementById("out_lon").value = position.coords.longitude.toFixed(5);
   encode(position.coords.latitude, position.coords.longitude);
   document.getElementById("out_hex").value = hexcode;
-  document.getElementById("out_mem").value = code;
-
+  putmem();
   try {map.entities.remove(pinme);} // delete old pin if it exists
   catch {}
   loc = new Microsoft.Maps.Location(document.getElementById("out_lat").value, 
@@ -123,8 +132,7 @@ function putPos(position) {
                                       text: 'M' } );
   map.entities.push(pinme);  //Add the pushpin to the map
   map.setView({center: loc,  //Recentre map to me
-               zoom: 10 });
-  }
+               zoom: 10 }); }
 
 const words = ["ace","act","add","age", "aid","aim","air","all",
                "and","ant","ape","arm", "art","ash","ask","ate",
@@ -336,7 +344,7 @@ function check(tex) {
 <H2>GTHcode</H2>
 Version: 1.8
 <p><a href="convert.html">Go to conversion page</a></p>
-<!--<table style="width:100%">
+<!-- <table style="width:100%">
   <tr>
     <td style=width:50%><b>MemCode from Lat,Long</b></td>
     <td style=width:50%><b>Lat,Long from MemCode</b></td>
@@ -354,7 +362,7 @@ Version: 1.8
     <td><input type="text" id="in_lon" name="in_lon"></td>
     <td><label for="out_lon">Longitude:</label></td>
     <td><input type="text" id="out_lon" name="out_lon" disabled></td>
-  </tr>-->
+  </tr>
   <tr>
     <td><label for="out_mem">MemCode:</label></td>
     <td><input type="text" id="out_mem" name="out_mem" disabled></td>
@@ -393,11 +401,7 @@ Version: 1.8
     <td><label for="out_me_memcode">MemCode:</label></td>
     <td><input type="text" id="out_me_memcode" name="out_me_memcode" disabled></td>
   </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>-->
+  -->
 <table>
  <tr>
     <td><button onclick="getmemcode()" class="button button1">Get MemCode</button></td>
@@ -427,7 +431,7 @@ Version: 1.8
   </tr>
   <tr>
     <td style="width:20%"><label for="out_hex">HexCode:</label></td>
-    <td style="width:20%"><input type="text" id="out_hex" name="out_hex" disabled></td>
+    <td style="width:20%"><input type="text" id="out_hex" name="out_hex"></td>
   </tr>
   <tr>
     <td style="width:20%"><label for="out_lat">Lat, Long:</label></td>
