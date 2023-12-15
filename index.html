@@ -77,11 +77,11 @@ function buildmem() {
             document.getElementById("t6").value.toLowerCase(); }
 function putmem() {
 	document.getElementById("t1").value = memcode.substr(0,3);
-	document.getElementById("t1").value = memcode.substr(4,3);
-	document.getElementById("t1").value = memcode.substr(8,3);
-	document.getElementById("t1").value = memcode.substr(12,3);
-	document.getElementById("t1").value = memcode.substr(16,3);
-	document.getElementById("t1").value = memcode.substr(20,3); }
+	document.getElementById("t2").value = memcode.substr(4,3);
+	document.getElementById("t3").value = memcode.substr(8,3);
+	document.getElementById("t4").value = memcode.substr(12,3);
+	document.getElementById("t5").value = memcode.substr(16,3);
+	document.getElementById("t6").value = memcode.substr(20,3); }
  
 function test() {
   buildmem();
@@ -230,15 +230,15 @@ function encode(lat, lon) {
     hexcode = parseInt(q, 4).toString(16);
     len = hexcode.length;
     hexcode = hexmask.substr(0,12-len) + hexcode;
-    code = "";
+    memcode = "";
     for (let i = 0; i < 6; i++) 
        {num = parseInt(hexcode.substr(2*i,2),16);
-        code += words[num];
-        if (i == 0) {code += "."} 
-        if (i == 1) {code += "."} 
-        if (i == 2) {code += "-"} 
-        if (i == 3) {code += "."} 
-        if (i == 4) {code += "."} }
+        memcode += words[num];
+        if (i == 0) {memcode += "."} 
+        if (i == 1) {memcode += "."} 
+        if (i == 2) {memcode += "-"} 
+        if (i == 3) {memcode += "."} 
+        if (i == 4) {memcode += "."} }
   }
 
 function decode(memcode) {
