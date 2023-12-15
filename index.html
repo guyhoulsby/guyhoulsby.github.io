@@ -21,6 +21,7 @@
   .button1 {width: 160px;
             height: 34px; }
   .inmem {type: "text";
+	  text-align: center;
 	  maxlength: 3;
           width: 10vw;
 //	  size: 3; 
@@ -63,7 +64,7 @@ function GetMap() {
                                try {map.entities.remove(pin);} // delete old pin if it exists
                                catch {}
                                pin = new Microsoft.Maps.Pushpin(e.location,  //Create custom Pushpin
-                                                                    {title: code,
+                                                                    {title: memcode,
 								     color: "green",
                                                                      text: 'C' } );
                                map.entities.push(pin); }); //Add the pushpin to the map
@@ -98,12 +99,12 @@ function test() {
   map.setView({center: loc});
   document.getElementById("out_hex").value = hexcode;
   document.getElementById("out_lat").value = lat.toFixed(5);
-  document.getElementById("out_lon").value = lon.toFixed(5); 
-  } 
+  document.getElementById("out_lon").value = lon.toFixed(5); } 
 
 function getmemcode() {
   encode(document.getElementById("out_lat").value, document.getElementById("out_lon").value);
   putmem();
+  document.getElementById("out_mem").value = memcode; }
   document.getElementById("out_hex").value = hexcode; }
 
 function getlatlong() {
@@ -404,8 +405,8 @@ Version: 1.8
   -->
 <table>
  <tr>
-    <td><button onclick="getmemcode()" class="button button1">Get MemCode</button></td>
-    <td><button onclick="getlatlong()" class="button button1">Get Lat,Long</button></td>
+    <td><button onclick="getmemcode()" class="button button1">... from Lat, Long</button></td>
+    <td><button onclick="getlatlong()" class="button button1">... from MemCode</button></td>
     <td><button onclick="getLocation()" class="button button1">Get my location</button></td>
   </tr>
 </table>
@@ -426,17 +427,17 @@ Version: 1.8
 </table>
 <table style="width:100%">
   <tr>
-    <td style="width:20%"><label for="out_mem">MemCode:</label></td>
+    <td style="width:10%"><label for="out_mem">MemCode:</label></td>
     <td style="width:20%"><input type="text" id="out_mem" name="out_mem"></td>
   </tr>
   <tr>
-    <td style="width:20%"><label for="out_hex">HexCode:</label></td>
+    <td style="width:10%"><label for="out_hex">HexCode:</label></td>
     <td style="width:20%"><input type="text" id="out_hex" name="out_hex"></td>
   </tr>
   <tr>
-    <td style="width:20%"><label for="out_lat">Lat, Long:</label></td>
-    <td style="width:20%"><input type="text" id="out_lat" name="out_lat"></td>
-    <td style="width:20%"><input type="text" id="out_lon" name="out_lon"></td>
+    <td style="width:10%"><label for="out_lat">Lat, Long:</label></td>
+    <td style="width:10%"><input type="text" id="out_lat" name="out_lat"></td>
+    <td style="width:10%"><input type="text" id="out_lon" name="out_lon"></td>
   </tr>
 </table>
 <table style="width:100%">
