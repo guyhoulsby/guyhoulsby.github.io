@@ -24,7 +24,7 @@
 	  maxlength: 3;
           size: 3; 
 	  font-size: 24px
-	  max-width: 20vw}
+	  width: 20vw}
 </style>
 
 <script type='text/javascript'
@@ -70,12 +70,12 @@ function GetMap() {
     }
 	
 function test() {
-  memcode = document.getElementById("t1").value + "." +
-            document.getElementById("t2").value + "." +
-            document.getElementById("t3").value + "-" +
-            document.getElementById("t4").value + "." +
-            document.getElementById("t5").value + "." +
-            document.getElementById("t6").value;
+  memcode = document.getElementById("t1").value.toLowerCase() + "." +
+            document.getElementById("t2").value.toLowerCase() + "." +
+            document.getElementById("t3").value.toLowerCase() + "-" +
+            document.getElementById("t4").value.toLowerCase() + "." +
+            document.getElementById("t5").value.toLowerCase() + "." +
+            document.getElementById("t6").value.toLowerCase();
   decode(memcode);
   if (! found) {document.getElementById("out_err").value = "Location not found";
                 return;}
@@ -404,27 +404,28 @@ Version: 1.8
     <td><button onclick="getLocation()" class="button button1">Get my location</button></td>
   </tr>
 </table>
-<table>
+<table style="width:100%">
   <tr>
-    <td style="width:50%">
+    <td>
         <input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
         <input class="inmem"  id="t2" name="t2" oninput=ft2()> <b>.</b>
         <input class="inmem"  id="t3" name="t3" oninput=ft3()> <b>-</b></td>
   </tr>
   <tr>
-    <td style="width:50%">
+    <td>
 	<input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
         <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
         <input class="inmem" id="t6" name="t6" oninput=ft6()> 
 	<button class="button button1" onclick="test()">Put on map</button></td>
   </tr>
-</table>
-<table style="width:100%">
   <tr>
-    <td style="width:20%"><label for="out_mapc_lat">Latitude:</label></td>
-    <td style="width:30%"><input type="text" id="out_mapc_lat" name="out_mapc_lat" disabled></td>
-    <td style="width:20%"><label for="out_mapc_lon">Longitude:</label></td>
-    <td style="width:30%"><input type="text" id="out_mapc_lon" name="out_mapc_lon" disabled></td>
+    <td style="width:20%"><label for="out_hex">HexCode:</label></td>
+    <td style="width:20%"><input type="text" id="out_hex" name="out_hex" disabled></td>
+  </tr>
+  <tr>
+    <td style="width:20%"><label for="out_mapc_lat">Lat, Long:</label></td>
+    <td style="width:20%"><input type="text" id="out_mapc_lat" name="out_mapc_lat" disabled></td>
+    <td style="width:20%"><input type="text" id="out_mapc_lon" name="out_mapc_lon" disabled></td>
   </tr>
 </table>
 <table style="width:100%">
@@ -432,8 +433,8 @@ Version: 1.8
     <td style="width:50%"><input type="text" id="out_err" name="out_err" style="color:red" disabled></td>
   </tr>
 </table>
-<b>Click anywhere on the map to show code:</b>
-<div id="myMap" style="position:relative;width:100%;height:50vh;"></div> <!-- width and height on screen -->
+<p><b>Click anywhere on the map to show code:</b></p>
+<div id="myMap" style="position:relative;width:100vw;height:50vh;"></div> <!-- width and height on screen -->
 <script type="text/javascript">
     reporttype();
 </script>
