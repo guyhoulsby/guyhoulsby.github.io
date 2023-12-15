@@ -63,7 +63,7 @@ function GetMap() {
 	                       document.getElementById("out_lon").value = e.location.longitude.toFixed(5);
                                encode(e.location.latitude, e.location.longitude);
                                document.getElementById("out_hex").value = hexcode;
-                               document.getElementById("out_mem").value = code;
+                               document.getElementById("out_mem").value = memcode;
                                try {map.entities.remove(pin);} // delete old pin if it exists
                                catch {}
                                pin = new Microsoft.Maps.Pushpin(e.location,  //Create custom Pushpin
