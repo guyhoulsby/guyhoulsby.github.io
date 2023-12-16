@@ -16,11 +16,12 @@
            text-decoration: none;
            display: inline-block;
            font-size: 16px;
-           margin: 0px 0px;
+           height: 34px; 
+	   margin: 0px 0px;
            cursor: pointer; 
 	   min-width: 100px;}
-  .button1 {width: 25vw;
-            height: 34px; }
+  .buttonwide {width: 25vw;}
+  .buttonnarrow {width: 10vw;}
   .inmem {type: "text";
            text-align: center;
 	  maxlength: 3;
@@ -426,24 +427,24 @@ function hextoquad(hexcode) {
 <H2>GTHcode</H2>
 Version: 1.10
 <!--<p><a href="convert.html">Go to conversion page</a></p>-->
-<p><button onclick="getLocation()" class="button button1">Get my location</button>
-   <button onclick="share()" class="button button1">Share</button>
-   <button onclick="test()" class="button button1">Test</button></p>
+<p><button onclick="getLocation()" class="button buttonwide">Get my location</button>
+   <button onclick="share()" class="button buttonnarrow">Share</button>
+   <button onclick="test()" class="button buttonnarrow">Test</button></p>
 <p><input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
    <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
    <input class="inmem" id="t3" name="t3" oninput=ft3()> 
-   <button onclick="fromMemCode()" class="button button1">... get from MemCode</button><br>
+   <button onclick="fromMemCode()" class="button buttonwide">... get from MemCode</button><br>
    <input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
    <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
    <input class="inmem" id="t6" name="t6" oninput=ft6()> 
    <button class="button button1" onclick="putonmap()">Put on map</button></p>
 <p><label for="out_hex">HexCode:</label>
     <input input class="texgen" id="out_hex" name="out_hex">
-    <button onclick="fromHexCode()" class="button button1">... get from HexCode</button></p>
+    <button onclick="fromHexCode()" class="button buttonwide">... get from HexCode</button></p>
 <p><label for="out_lat">Lat, Long:</label>
     <input class="texgen" id="out_lat" name="out_lat"> 
     <input class="texgen" id="out_lon" name="out_lon">
-    <button onclick="fromLatLong()" class="button button1">... get from Lat, Long</button></p>
+    <button onclick="fromLatLong()" class="button buttonwide">... get from Lat, Long</button></p>
 <p>Messages: <input type="text" id="out_err" name="out_err" style="color:red" disabled></p>
 <p><b>Click anywhere on the map to show code:</b></p>
 	
