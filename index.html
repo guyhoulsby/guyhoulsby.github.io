@@ -32,46 +32,48 @@
 	   font-size: 18px;}
 </style>
 
-<script type='text/javascript'
-        src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ArPM1-wZaL7eXbyDyv75z434nDeiThBHD-TQnHqoxxQwFdYQEcxc_WdyUA6vGl2O' async defer>
+<script type='text/javascript' // load BING map
+  src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ArPM1-wZaL7eXbyDyv75z434nDeiThBHD-TQnHqoxxQwFdYQEcxc_WdyUA6vGl2O' async defer>
 </script>
 
-<script type='text/javascript'>
-function isMobile() {
-  const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-  return regex.test(navigator.userAgent); }
-	
-if (isMobile()) {console.log("Mobile device detected");
-		 mobile = true;}
-else {console.log("Desktop device detected"); 
-      mobile = false;}
-	
-function reporttype() {
-	if (mobile) {document.getElementById("out_err").value = "Mobile device";}
-        else {document.getElementById("out_err").value = "Desktop device";} }
+<script type='text/javascript'> // detect mobile or desktop device
+  function isMobile() {
+    const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return regex.test(navigator.userAgent); }	
+  if (isMobile()) {console.log("Mobile device detected");
+                   mobile = true;}
+  else {console.log("Desktop device detected"); 
+        mobile = false;}
+  function reporttype() {
+    if (mobile) {putmessage("Mobile device");}
+    else {putmessage("Desktop device");} }
 </script>
 
-<script type='text/javascript'>
+<script type='text/javascript'> // functions related to the interface
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
-    map.setView({center: new Microsoft.Maps.Location(54.0, -2.0),
+    initloc = new Microsoft.Maps.Location(54.0, -2.0);
+    map.setView({center: initloc,
                  zoom: 8 });
-    Microsoft.Maps.Events.addHandler(map, 'click', function(e) // event handler for map click
-		              {console.log('Map clicked');
-		               document.getElementById("out_lat").value = e.location.latitude.toFixed(5);		
-	                       document.getElementById("out_lon").value = e.location.longitude.toFixed(5);
-                               encode(e.location.latitude, e.location.longitude);
-                               document.getElementById("out_hex").value = hexcode;
-			       putmem();
-                               try {map.entities.remove(pin);} // delete old pin if it exists
-                               catch {}
-                               pin = new Microsoft.Maps.Pushpin(e.location,  //Create custom Pushpin
-                                                                    {title: memcode,
-								     color: "green",
-                                                                     text: 'C' } );
-                               map.entities.push(pin); }); //Add the pushpin to the map
-    }
+    Microsoft.Maps.Events.addHandler(map, 'click', // event handler for map click
+				     function(e) {mapclick(e);} ); }
+
+function mapclick() {console.log('Map clicked');
+		     document.getElementById("out_lat").value = e.location.latitude.toFixed(5);		
+	             document.getElementById("out_lon").value = e.location.longitude.toFixed(5);
+                     encode(e.location.latitude, e.location.longitude);
+                     document.getElementById("out_hex").value = hexcode;
+		     putmem();
+                     try {map.entities.remove(pin);} // delete old pin if it exists
+                     catch {}
+                     pin = new Microsoft.Maps.Pushpin(e.location,  // create pushpin
+                                                      {title: memcode,
+						       color: "green",
+                                                       text: 'C'} );
+                     map.entities.push(pin); }; // add to map
+	
 function clearmessage () {document.getElementById("out_err").value = "";}
+function putmessage(text) {document.getElementById("out_err").value = text;}
 
 function checkvalid(box) {
   tex = document.getElementById(box).value.toLowerCase();
@@ -110,11 +112,11 @@ function putonmap() {
   catch {}
   decode(memcode);
   loc = new Microsoft.Maps.Location(lat, lon)
-  pincode = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
+  pincode = new Microsoft.Maps.Pushpin(loc,  // create pushpin
                                        {title: memcode,
                                         color: "blue",
                                         text: 'D' } );
-  map.entities.push(pincode);  //Add the pushpin to the map
+  map.entities.push(pincode);  // add to the map
   map.setView({center: loc});
   document.getElementById("out_hex").value = hexcode;
   document.getElementById("out_lat").value = lat.toFixed(5);
@@ -166,6 +168,20 @@ function fromHexCode() {
 function getLocation() {
   if (navigator.geolocation) {navigator.geolocation.getCurrentPosition(putPos, showError);} 
   else {x.innerHTML = "Geolocation is not supported by this browser.";} }
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break; } }
 	
 function putPos(position) {
   clearmessage();
@@ -175,19 +191,36 @@ function putPos(position) {
   encode(position.coords.latitude, position.coords.longitude);
   putmem();
   document.getElementById("out_hex").value = hexcode;
-
   try {map.entities.remove(pinme);} // delete old pin if it exists
   catch {}
   loc = new Microsoft.Maps.Location(document.getElementById("out_lat").value, 
                                     document.getElementById("out_lon").value)
-  pinme = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
+  pinme = new Microsoft.Maps.Pushpin(loc,  // create pushpin
                                      {title: memcode,
                                       color: "red",
                                       text: 'M' } );
-  map.entities.push(pinme);  //Add the pushpin to the map
-  map.setView({center: loc,  //Recentre map to me
+  map.entities.push(pinme);  // put on map
+  map.setView({center: loc,  //Recentre map to my location
                zoom: 10 }); }
 
+function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
+								      document.getElementById("t2").focus(); } }
+function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
+								      document.getElementById("t3").focus(); } }
+function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
+								      document.getElementById("t4").focus(); } }
+function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
+								      document.getElementById("t5").focus(); } }
+function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
+								      document.getElementById("t6").focus(); } }
+function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
+
+function check(tex) {     
+  for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
+  document.getElementById("out_err").value = "Word not found"; }
+</script>
+	
+<script type='text/javascript'> // functions for coding and decoding
 const words = ["ace","act","add","age", "aid","aim","air","all",
                "and","ant","ape","arm", "art","ash","ask","ate",
                "bad","bag","bar","bat", "bay","bed","beg","bet",
@@ -224,13 +257,13 @@ const words = ["ace","act","add","age", "aid","aim","air","all",
                "vet","war","was","wax", "way","web","who","why",
                "wig","win","wit","yes", "yet","you","zip","zoo"];
 
-function encode(lat, lon) {
+function encode(lat, lon) { // assumes lat and long are valid floats
     if (lon >= 180.0) {lon -= 360.0}
     x = (lon + 180.0) / 90.0;
     y = (lat +  90.0) / 60.0;
     xi = Math.floor(x)%4;
     x -= Math.floor(x);
-    if (xi == 0) {q = "2"}
+    if (xi == 0) {q = "2"} // q is the QuadCode
     else if (xi == 1) {q = "0"}
     else if (xi == 2) {q = "1"}
     else {q = "3"}
@@ -278,41 +311,14 @@ function encode(lat, lon) {
             q = q + ci.toString();
             x -= Math.floor(x);
             y -= Math.floor(y); } }
-    qtohex(q);
-    hextomem(hexcode); }
-function qtohex(q)
-    {hexmask = "000000000000";
-     hexcode = parseInt(q, 4).toString(16);
-     len = hexcode.length;
-     hexcode = hexmask.substr(0,12-len) + hexcode; }
-function hextomem(hexcode)
-    {memcode = "";
-     for (let i = 0; i < 6; i++) 
-       {num = parseInt(hexcode.substr(2*i,2),16);
-        memcode += words[num];
-        if (i == 0) {memcode += "."} 
-        if (i == 1) {memcode += "."} 
-        if (i == 2) {memcode += "-"} 
-        if (i == 3) {memcode += "."} 
-        if (i == 4) {memcode += "."} } } 
+    hexcode = quadtohex(q);
+    memcode = hextomem(hexcode); }
+
+	
 function decode(memcode) {
-    hexcode = ""; // convert memcode to hexcode
-    for (let i = 0; i < 6; i++) 
-        {tex = memcode.substr(4*i,3).toLowerCase();
-         found = false;
-	 for (let j = 0; j < 256; j++) 
-             {if (tex == words[j]) 
-                 {if (j.toString(16).length == 1) {hexcode += "0"};
-                  hexcode += j.toString(16);
-		  found = true;}
-             } 
-         if (!found) {return "none";}
-        }
-    quadmask = "000000000000000000000000"; // convert hexcode to quadcode q
-    q = parseInt(hexcode, 16).toString(4);
-    len = q.length;
-    q = quadmask.substr(0,24-len) + q;
-    q0 = q.substr(0,1);             // decode first digit
+    hexcode = memtohex(memcode);
+    q = hextoquad(hexcode);
+    q0 = q.substr(0,1);           // decode first digit
     if (q0 == "2") {x = -180.0} 
     else if (q0 == "0") {x = -90.0} 
     else if (q0 == "1") {x = 0.0} 
@@ -353,42 +359,47 @@ function decode(memcode) {
             y += yran*yi;
             x += xran*xi; } }
     lon = x + 0.5*xran;
-    lat = y + 0.5*yran;
-  }
+    lat = y + 0.5*yran; }
 
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
-      break;
-    case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
-      break;
-    case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
-      break;
-    case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
-      break;
-    }
-  }
+function quadtohex(q)
+    {hexmask = "000000000000";
+     hexcode = parseInt(q, 4).toString(16);
+     len = hexcode.length;
+     hexcode = hexmask.substr(0,12-len) + hexcode; 
+     return hexcode;}
 
-function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
-								      document.getElementById("t2").focus(); } }
-function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
-								      document.getElementById("t3").focus(); } }
-function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
-								      document.getElementById("t4").focus(); } }
-function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
-								      document.getElementById("t5").focus(); } }
-function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
-								      document.getElementById("t6").focus(); } }
-function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
+function hextomem(hexcode)
+    {memcode = "";
+     for (let i = 0; i < 6; i++) 
+       {num = parseInt(hexcode.substr(2*i,2),16);
+        memcode += words[num];
+        if (i == 0) {memcode += "."} 
+        if (i == 1) {memcode += "."} 
+        if (i == 2) {memcode += "-"} 
+        if (i == 3) {memcode += "."} 
+        if (i == 4) {memcode += "."} } 
+     return memcode; } 
 
-function check(tex) {     
-  for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
-  document.getElementById("out_err").value = "Word not found"; }
+function memtohex(memcode)
+  {hexcode = ""; // convert memcode to hexcode
+   for (let i = 0; i < 6; i++) 
+     {tex = memcode.substr(4*i,3).toLowerCase();
+      found = false;
+      for (let j = 0; j < 256; j++) 
+        {if (tex == words[j]) 
+          {if (j.toString(16).length == 1) {hexcode += "0"};
+           hexcode += j.toString(16);
+           found = true;}
+        } 
+        if (found) {return hexcode;}
+        else {return "null";}
+     } }
 
+function hextoquad(hexcode) {
+  quadmask = "000000000000000000000000"; // convert hexcode to quadcode q
+  q = parseInt(hexcode, 16).toString(4);
+  len = q.length;
+  q = quadmask.substr(0,24-len) + q; }
 </script>
 
 <body>
@@ -414,7 +425,7 @@ Version: 1.10
     <button onclick="fromLatLong()" class="button button1">... get from Lat, Long</button></p>
 <p>Messages:<input type="text" id="out_err" name="out_err" style="color:red" disabled></p>
 <p><b>Click anywhere on the map to show code:</b></p>
-<div id="myMap" style="position:relative;width:100vw;height:50vh;"></div> <!-- width and height on screen -->
+<div id="myMap" style="position:relative;width:100vw;height:50vh;"></div>
 <script type="text/javascript">reporttype();</script>
 </body>
 </html>
