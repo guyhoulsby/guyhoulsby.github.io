@@ -53,16 +53,21 @@
 
 function share() {navigator.share({text: memcode});}
 	
-function test() {let text = memcode;
-  putmessage("Copying " + text);
-	  const copyContent = async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      console.log('Content copied to clipboard');
-    } catch (err) {
-      console.log('Failed to copy');
-    }
-  }}
+function test() {let copyText = memcode;
+  copyText.select();
+  document.execCommand("copy");
+}
+document.querySelector("#copy").addEventListener("click", copy);
+//{let text = memcode;
+//  putmessage("Copying " + text);
+//	  const copyContent = async () => {
+//    try {
+//      await navigator.clipboard.writeText(text);
+//      console.log('Content copied to clipboard');
+//    } catch (err) {
+//      console.log('Failed to copy');
+//    }
+//  }}
 	
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
