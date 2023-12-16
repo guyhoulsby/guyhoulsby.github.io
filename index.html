@@ -132,7 +132,6 @@ function putPos(position) {
   document.getElementById("out_lon").value = position.coords.longitude.toFixed(5);
   encode(position.coords.latitude, position.coords.longitude);
   putmem();
-  document.getElementById("out_mem").value = memcode;
   document.getElementById("out_hex").value = hexcode;
 
   try {map.entities.remove(pinme);} // delete old pin if it exists
