@@ -122,9 +122,9 @@ function fromLatLong() {
     lvalid = true;
     lat = parseFloat(document.getElementById("out_lat").value)
     lon = parseFloat(document.getElementById("out_lon").value)
-    if (lat == NaN) {document.getElementById("out_err").value = "Latitude invalid";
+    if (isNaN(lat)) {document.getElementById("out_err").value = "Latitude invalid";
 		     lvalid = false;}
-    if (lon == NaN) {document.getElementById("out_err").value = "Longitude invalid";
+    if (isNaN(lon)) {document.getElementById("out_err").value = "Longitude invalid";
 		     lvalid = false;}
     if (lon >= 180.0) {lon -= 360.0}
     if (lon < -180.0) {document.getElementById("out_err").value = "Longitude invalid";
