@@ -71,6 +71,7 @@ function GetMap() {
                                                                      text: 'C' } );
                                map.entities.push(pin); }); //Add the pushpin to the map
     }
+function clearmessage () {document.getElementById("out_err").value = "";}
 
 function checkvalid(box) {
   tex = document.getElementById(box).value.toLowerCase();
@@ -101,6 +102,7 @@ function putmem() {
   document.getElementById("t6").value = memcode.substr(20,3); }
  
 function putonmap() {
+  clearmessage();
   buildmem();
   if (!valid) {document.getElementById("out_err").value = "Location not found";
                return;}
@@ -119,6 +121,7 @@ function putonmap() {
   document.getElementById("out_lon").value = lon.toFixed(5); } 
 
 function fromLatLong() {
+  clearmessage();
     lvalid = true;
     lat = parseFloat(document.getElementById("out_lat").value)
     lon = parseFloat(document.getElementById("out_lon").value)
@@ -144,6 +147,7 @@ function fromLatLong() {
     }
 
 function fromMemCode() {
+  clearmessage();
   buildmem();
   decode(memcode);
   document.getElementById("out_hex").value = hexcode;
@@ -151,6 +155,7 @@ function fromMemCode() {
   document.getElementById("out_lon").value = lon.toFixed(5); }
 
 function fromHexCode() {
+  clearmessage();
   hexcode = document.getElementById("out_hex").value 
   hextomem(hexcode);
   putmem();
@@ -163,6 +168,7 @@ function getLocation() {
   else {x.innerHTML = "Geolocation is not supported by this browser.";} }
 	
 function putPos(position) {
+  clearmessage();
   found = true;
   document.getElementById("out_lat").value = position.coords.latitude.toFixed(5);
   document.getElementById("out_lon").value = position.coords.longitude.toFixed(5);
@@ -219,8 +225,6 @@ const words = ["ace","act","add","age", "aid","aim","air","all",
                "wig","win","wit","yes", "yet","you","zip","zoo"];
 
 function encode(lat, lon) {
-   // lat = parseFloat(lat)
-   // lon = parseFloat(lon)
     if (lon >= 180.0) {lon -= 360.0}
     x = (lon + 180.0) / 90.0;
     y = (lat +  90.0) / 60.0;
@@ -275,8 +279,7 @@ function encode(lat, lon) {
             x -= Math.floor(x);
             y -= Math.floor(y); } }
     qtohex(q);
-    hextomem(hexcode);
-  }
+    hextomem(hexcode); }
 function qtohex(q)
     {hexmask = "000000000000";
      hexcode = parseInt(q, 4).toString(16);
@@ -383,12 +386,9 @@ function ft5() {if (document.getElementById("t5").value.length == 3) {check(docu
 function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
 
 function check(tex) {     
-	i = -1;
-	for (let j = 0; j < 256; j++) 
-             {if (tex.toLowerCase() == words[j]) {i=1; } }
-  if (i == -1) {document.getElementById("out_err").value = "Word not found"}
-  else {document.getElementById("out_err").value = ""}
-}
+  for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
+  document.getElementById("out_err").value = "Word not found"; }
+
 </script>
 
 <body>
