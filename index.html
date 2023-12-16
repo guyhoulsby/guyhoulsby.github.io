@@ -105,6 +105,7 @@ function putonmap() {
                return;}
   try {map.entities.remove(pincode);} // delete old pin if it exists
   catch {}
+  decode(memcode);
   loc = new Microsoft.Maps.Location(lat, lon)
   pincode = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
                                        {title: memcode,
