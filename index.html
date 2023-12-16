@@ -54,7 +54,8 @@
 function share() {navigator.share({text: memcode});}
 	
 function test() {let text = memcode;
-  const copyContent = async () => {
+  putmessage("Copying " + text);
+	  const copyContent = async () => {
     try {
       await navigator.clipboard.writeText(text);
       console.log('Content copied to clipboard');
@@ -424,7 +425,7 @@ Version: 1.10
    <button onclick="test()" class="button button1">Test</button></p>
 <p><input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
    <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
-   <input class="inmem" id="t3" name="t3" oninput=ft3()> <b>-</b>
+   <input class="inmem" id="t3" name="t3" oninput=ft3()> 
    <button onclick="fromMemCode()" class="button button1">... get from MemCode</button><br>
    <input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
    <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
