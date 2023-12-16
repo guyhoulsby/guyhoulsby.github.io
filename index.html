@@ -389,25 +389,17 @@ function check(tex) {
 
 <body>
 <H2>GTHcode</H2>
-Version: 1.9
-<p><a href="convert.html">Go to conversion page</a></p>
+Version: 1.10
+<!--<p><a href="convert.html">Go to conversion page</a></p>-->
 <p><button onclick="getLocation()" class="button button1">Get my location</button>
    <button class="button button1" onclick="putonmap()">Put on map</button></p>
-<table style="width:100vw">
-  <tr>
-    <td>
-        <input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
-        <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
-        <input class="inmem" id="t3" name="t3" oninput=ft3()> <b>-</b>
-        <button onclick="fromMemCode()" class="button button1">... get from MemCode</button></td>
-  </tr>
-  <tr>
-    <td>
-	<input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
-        <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
-        <input class="inmem" id="t6" name="t6" oninput=ft6()> </td>
-  </tr>
-</table>
+<p><input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
+   <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
+   <input class="inmem" id="t3" name="t3" oninput=ft3()> <b>-</b>
+   <button onclick="fromMemCode()" class="button button1">... get from MemCode</button><br>
+   <input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
+   <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
+   <input class="inmem" id="t6" name="t6" oninput=ft6()> </p>
 <p><label for="out_hex">HexCode:</label>
     <input input class="texgen" id="out_hex" name="out_hex">
     <button onclick="fromHexCode()" class="button button1">... get from HexCode</button></p>
