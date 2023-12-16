@@ -282,7 +282,7 @@ function qtohex(q)
      hexcode = parseInt(q, 4).toString(16);
      len = hexcode.length;
      hexcode = hexmask.substr(0,12-len) + hexcode; }
-function hextomem(hexcode);
+function hextomem(hexcode)
     {memcode = "";
      for (let i = 0; i < 6; i++) 
        {num = parseInt(hexcode.substr(2*i,2),16);
