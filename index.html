@@ -122,10 +122,10 @@ function fromLatLong() {
     lvalid = true;
     lat = parseFloat(document.getElementById("out_lat").value)
     lon = parseFloat(document.getElementById("out_lon").value)
-    if (lat = NaN) {document.getElementById("out_err").value = "Latitude invalid";
-		    lvalid = false;}
-    if (lon = NaN) {document.getElementById("out_err").value = "Longitude invalid";
-		    lvalid = false;}
+    if (lat == NaN) {document.getElementById("out_err").value = "Latitude invalid";
+		     lvalid = false;}
+    if (lon == NaN) {document.getElementById("out_err").value = "Longitude invalid";
+		     lvalid = false;}
     if (lon >= 180.0) {lon -= 360.0}
     if (lon < -180.0) {document.getElementById("out_err").value = "Longitude invalid";
 		       lvalid = false;}
@@ -413,6 +413,7 @@ Version: 1.9
     <td style="width:10%"><label for="out_hex">HexCode:</label></td>
     <td style="width:20%"><input input class="texgen" id="out_hex" name="out_hex">
     <button onclick="fromHexCode()" class="button button1">... get from HexCode</button></td>
+    <td style="width:30%"></td>
   </tr>
   <tr>
     <td style="width:10%"><label for="out_lat">Lat, Long:</label></td>
