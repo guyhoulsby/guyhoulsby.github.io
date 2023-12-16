@@ -151,7 +151,8 @@ function fromMemCode() {
   document.getElementById("out_lon").value = lon.toFixed(5); }
 
 function fromHexCode() {
-  hextomem(document.getElementById("out_hex").value);
+  hexcode = document.getElementById("out_hex").value 
+  hextomem(hexcode);
   buildmem();
   decode(memcode);
   putmem();
