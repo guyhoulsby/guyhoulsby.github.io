@@ -151,9 +151,10 @@ function fromMemCode() {
   document.getElementById("out_lon").value = lon.toFixed(5); }
 
 function fromHexCode() {
+  hextomem(document.getElementById("out_hex").value);
   buildmem();
   decode(memcode);
-  document.getElementById("out_hex").value = hexcode;
+  putmem();
   document.getElementById("out_lat").value = lat.toFixed(5);
   document.getElementById("out_lon").value = lon.toFixed(5); }
 
@@ -273,21 +274,24 @@ function encode(lat, lon) {
             q = q + ci.toString();
             x -= Math.floor(x);
             y -= Math.floor(y); } }
-    hexmask = "000000000000";
-    hexcode = parseInt(q, 4).toString(16);
-    len = hexcode.length;
-    hexcode = hexmask.substr(0,12-len) + hexcode;
-    memcode = "";
-    for (let i = 0; i < 6; i++) 
+    qtohex(q);
+    hextomem(hexcode);
+  }
+function qtohex(q)
+    {hexmask = "000000000000";
+     hexcode = parseInt(q, 4).toString(16);
+     len = hexcode.length;
+     hexcode = hexmask.substr(0,12-len) + hexcode; }
+function hextomem(hexcode);
+    {memcode = "";
+     for (let i = 0; i < 6; i++) 
        {num = parseInt(hexcode.substr(2*i,2),16);
         memcode += words[num];
         if (i == 0) {memcode += "."} 
         if (i == 1) {memcode += "."} 
         if (i == 2) {memcode += "-"} 
         if (i == 3) {memcode += "."} 
-        if (i == 4) {memcode += "."} }
-  }
-
+        if (i == 4) {memcode += "."} } } 
 function decode(memcode) {
     hexcode = ""; // convert memcode to hexcode
     for (let i = 0; i < 6; i++) 
@@ -392,14 +396,15 @@ function check(tex) {
 Version: 1.10
 <!--<p><a href="convert.html">Go to conversion page</a></p>-->
 <p><button onclick="getLocation()" class="button button1">Get my location</button>
-   <button class="button button1" onclick="putonmap()">Put on map</button></p>
+   </p>
 <p><input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
    <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
    <input class="inmem" id="t3" name="t3" oninput=ft3()> <b>-</b>
    <button onclick="fromMemCode()" class="button button1">... get from MemCode</button><br>
    <input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
    <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
-   <input class="inmem" id="t6" name="t6" oninput=ft6()> </p>
+   <input class="inmem" id="t6" name="t6" oninput=ft6()> 
+   <button class="button button1" onclick="putonmap()">Put on map</button></p>
 <p><label for="out_hex">HexCode:</label>
     <input input class="texgen" id="out_hex" name="out_hex">
     <button onclick="fromHexCode()" class="button button1">... get from HexCode</button></p>
@@ -407,7 +412,7 @@ Version: 1.10
     <input class="texgen" id="out_lat" name="out_lat"> 
     <input class="texgen" id="out_lon" name="out_lon">
     <button onclick="fromLatLong()" class="button button1">... get from Lat, Long</button></p>
-<p><input type="text" id="out_err" name="out_err" style="color:red" disabled></p>
+<p>Messages:<input type="text" id="out_err" name="out_err" style="color:red" disabled></p>
 <p><b>Click anywhere on the map to show code:</b></p>
 <div id="myMap" style="position:relative;width:100vw;height:50vh;"></div> <!-- width and height on screen -->
 <script type="text/javascript">reporttype();</script>
