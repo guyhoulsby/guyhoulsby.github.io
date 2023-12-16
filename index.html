@@ -153,9 +153,8 @@ function fromMemCode() {
 function fromHexCode() {
   hexcode = document.getElementById("out_hex").value 
   hextomem(hexcode);
-  buildmem();
-  decode(memcode);
   putmem();
+  decode(memcode);
   document.getElementById("out_lat").value = lat.toFixed(5);
   document.getElementById("out_lon").value = lon.toFixed(5); }
 
