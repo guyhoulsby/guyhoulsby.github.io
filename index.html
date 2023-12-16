@@ -59,7 +59,7 @@ function test() {let text = memcode;
       await navigator.clipboard.writeText(text);
       console.log('Content copied to clipboard');
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      console.log('Failed to copy');
     }
   }}
 	
