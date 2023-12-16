@@ -11,12 +11,12 @@
   .button {background-color: #4CAF50; /* Green */
            border: none;
            color: white;
-           padding: 10px 10px;
+           padding: 2px 2px;
            text-align: center;
            text-decoration: none;
            display: inline-block;
            font-size: 16px;
-           height: 34px; 
+           height: 30px; 
 	   margin: 0px 0px;
            cursor: pointer;}
   .buttonwide {width: 25vw; 
@@ -59,9 +59,8 @@ function share() {navigator.share({text: memcode});}
 	
 function test() {
     /* Get the text field */
-    //putmessage(memcode);
-    //let copyGfGText = document.getElementById("out_err");
-    let copyGfGText = memcode;
+    putmessage(memcode);
+    let copyGfGText = document.getElementById("out_err");
     /* Select the text field */
     copyGfGText.select();
     /* Copy the text inside the text field */
