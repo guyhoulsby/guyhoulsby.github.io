@@ -356,40 +356,34 @@ function check(tex) {
 <H2>GTHcode</H2>
 Version: 1.8
 <p><a href="convert.html">Go to conversion page</a></p>
-<table>
- <tr>
-    <td></td>
-    <td></td>
-    <td><button onclick="getLocation()" class="button button1">Get my location</button></td>
-  </tr>
-</table>
+<p><button onclick="getLocation()" class="button button1">Get my location</button>
+   <button class="button button1" onclick="test()">Put on map</button></p>
 <table style="width:100vw">
   <tr>
     <td>
         <input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
         <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
         <input class="inmem" id="t3" name="t3" oninput=ft3()> <b>-</b>
-        <button onclick="fromMemCode()" class="button button1">... from MemCode</button></td>
+        <button onclick="fromMemCode()" class="button button1">... get from MemCode</button></td>
   </tr>
   <tr>
     <td>
 	<input class="inmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
         <input class="inmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
-        <input class="inmem" id="t6" name="t6" oninput=ft6()> 
-	<button class="button button1" onclick="test()">Put on map</button></td>
+        <input class="inmem" id="t6" name="t6" oninput=ft6()> </td>
   </tr>
 </table>
 <table>
   <tr>
     <td style="width:10%"><label for="out_hex">HexCode:</label></td>
     <td style="width:20%"><input input class="texgen" id="out_hex" name="out_hex">
-    <button onclick="fromHexCode()" class="button button1">... from HexCode</button></td>
+    <button onclick="fromHexCode()" class="button button1">... get from HexCode</button></td>
   </tr>
   <tr>
     <td style="width:10%"><label for="out_lat">Lat, Long:</label></td>
     <td style="width:10%"><input class="texgen" id="out_lat" name="out_lat"> 
     <input class="texgen" id="out_lon" name="out_lon">
-    <button onclick="fromLatLong()" class="button button1">... from Lat, Long</button></td>
+    <button onclick="fromLatLong()" class="button button1">... get from Lat, Long</button></td>
   </tr>
 </table>
 <table style="width:100%">
@@ -399,8 +393,6 @@ Version: 1.8
 </table>
 <p><b>Click anywhere on the map to show code:</b></p>
 <div id="myMap" style="position:relative;width:100vw;height:50vh;"></div> <!-- width and height on screen -->
-<script type="text/javascript">
-    reporttype();
-</script>
+<script type="text/javascript">reporttype();</script>
 </body>
 </html>
