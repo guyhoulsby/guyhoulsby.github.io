@@ -72,25 +72,37 @@ function GetMap() {
                                                                      text: 'C' } );
                                map.entities.push(pin); }); //Add the pushpin to the map
     }
+
+function checkvalid(box, tex) {
+  tex = document.getElementById(box).value.toLowerCase();
+  found = false;
+  for (let j = 0; j < 256; j++) 
+     {if (tex == words[j]) {found = true;} } 
+  if (!found) {document.getElementById("out_err").value = tex + " not valid";
+	       valid = false;} }
+
 function buildmem() {
-  memcode = document.getElementById("t1").value.toLowerCase() + "." +
-            document.getElementById("t2").value.toLowerCase() + "." +
-            document.getElementById("t3").value.toLowerCase() + "-" +
-            document.getElementById("t4").value.toLowerCase() + "." +
-            document.getElementById("t5").value.toLowerCase() + "." +
-            document.getElementById("t6").value.toLowerCase(); }
+  valid = true;
+  checkvalid("t1", c1);
+  checkvalid("t2", c2);
+  checkvalid("t3", c3);
+  checkvalid("t4", c4);
+  checkvalid("t5", c5);
+  checkvalid("t6", c6);
+  if (valid) {memcode = c1 + "." + c2 + "." + c3 + "-" + c4 + "." + c5 + "." + c6;} }
+
 function putmem() {
-	document.getElementById("t1").value = memcode.substr(0,3);
-	document.getElementById("t2").value = memcode.substr(4,3);
-	document.getElementById("t3").value = memcode.substr(8,3);
-	document.getElementById("t4").value = memcode.substr(12,3);
-	document.getElementById("t5").value = memcode.substr(16,3);
-	document.getElementById("t6").value = memcode.substr(20,3); }
+  document.getElementById("t1").value = memcode.substr(0,3);
+  document.getElementById("t2").value = memcode.substr(4,3);
+  document.getElementById("t3").value = memcode.substr(8,3);
+  document.getElementById("t4").value = memcode.substr(12,3);
+  document.getElementById("t5").value = memcode.substr(16,3);
+  document.getElementById("t6").value = memcode.substr(20,3); }
  
 function test() {
   buildmem();
-  if (! found) {document.getElementById("out_err").value = "Location not found";
-                return;}
+  if (!valid) {document.getElementById("out_err").value = "Location not found";
+               return;}
   try {map.entities.remove(pincode);} // delete old pin if it exists
   catch {}
   loc = new Microsoft.Maps.Location(lat, lon)
