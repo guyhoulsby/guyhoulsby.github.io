@@ -132,7 +132,9 @@ function fromLatLong() {
     if (lvalid) {encode(lat, lon);
                  valid = true;
                  putmem();
-                 document.getElementById("out_hex").value = hexcode; }
+                 document.getElementById("out_hex").value = hexcode; 
+	  	 document.getElementById("out_lat").value = lat.toFixed(5);
+	  	 document.getElementById("out_lon").value = lon.toFixed(5);}
     }
 
 function fromMemCode() {
