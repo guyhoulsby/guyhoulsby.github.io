@@ -18,10 +18,11 @@
            font-size: 16px;
            height: 34px; 
 	   margin: 0px 0px;
-           cursor: pointer; 
-	   min-width: 100px;}
-  .buttonwide {width: 25vw;}
-  .buttonnarrow {width: 10vw;}
+           cursor: pointer;}
+  .buttonwide {width: 25vw; 
+	       min-width: 150px;}
+  .buttonnarrow {width: 10vw; 
+	         min-width: 100px;}
   .inmem {type: "text";
            text-align: center;
 	  maxlength: 3;
@@ -57,8 +58,9 @@ function share() {navigator.share({text: memcode});}
 	
 function test() {
     /* Get the text field */
-    putmessage(memcode);
-    let copyGfGText = document.getElementById("out_err");
+    //putmessage(memcode);
+    //let copyGfGText = document.getElementById("out_err");
+    let copyGfGText = memcode;
     
     /* Select the text field */
     copyGfGText.select();
@@ -68,7 +70,7 @@ function test() {
         
     /* Use below command to access the 
        value of copied text */
-    console.log(copyGfGText.value);}
+    console.log(Copied " + copyGfGText.value);}
 
 	
 function GetMap() {
