@@ -26,7 +26,7 @@
   .texmem {type: "text";
            text-align: center;
 	  maxlength: 3;
-          width: 15vw;
+          width: 12vw;
 	  min-width: 5vw;
 	  font-size: 20px;}
   .texgen {type: "text";
@@ -430,7 +430,7 @@ function hextoquad(hexcode) {
 <body>
 <H2>GTHcode</H2>
 Version: 1.10
-<p><button onclick="getLocation()" class="button buttonwide">Get my location</button>
+   <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="share()" class="button buttonnarrow">Share</button>
    <!--<button onclick="test()" class="button buttonnarrow">Test</button>--><br>
    <input class="texmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
@@ -450,7 +450,6 @@ Version: 1.10
     <button onclick="fromLatLong()" class="button buttonwide">... get from Lat, Long</button><br>
     Messages: <input type="text" id="out_err" name="out_err" style="color:red" disabled><br>
     <b>Click on map to show code:</b>
-</p>
 	
 <div id="myMap" style="position:relative;width:100vw;height:50vh;"></div>
 	
