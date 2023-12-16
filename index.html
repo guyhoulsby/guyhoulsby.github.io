@@ -50,6 +50,9 @@
 </script>
 
 <script type='text/javascript'> // functions related to the interface
+
+function test() {navigator.share({text: memcode});}
+	
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
     initloc = new Microsoft.Maps.Location(54.0, -2.0);
@@ -407,7 +410,7 @@ function hextoquad(hexcode) {
 Version: 1.10
 <!--<p><a href="convert.html">Go to conversion page</a></p>-->
 <p><button onclick="getLocation()" class="button button1">Get my location</button>
-   </p>
+   <button onclick="test()" class="button button1">Test</button></p>
 <p><input class="inmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
    <input class="inmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
    <input class="inmem" id="t3" name="t3" oninput=ft3()> <b>-</b>
