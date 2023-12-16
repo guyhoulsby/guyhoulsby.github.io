@@ -313,9 +313,9 @@ function encode(lat, lon) { // assumes lat and long are valid floats
             y -= Math.floor(y); } }
     hexcode = quadtohex(q);
     memcode = hextomem(hexcode); }
-
 	
 function decode(memcode) {
+    putmessage(memcode);
     hexcode = memtohex(memcode);
     q = hextoquad(hexcode);
     q0 = q.substr(0,1);           // decode first digit
@@ -399,7 +399,8 @@ function hextoquad(hexcode) {
   quadmask = "000000000000000000000000"; // convert hexcode to quadcode q
   q = parseInt(hexcode, 16).toString(4);
   len = q.length;
-  q = quadmask.substr(0,24-len) + q; }
+  q = quadmask.substr(0,24-len) + q; 
+  return q}
 </script>
 
 <body>
