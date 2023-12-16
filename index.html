@@ -390,10 +390,9 @@ function memtohex(memcode)
           {if (j.toString(16).length == 1) {hexcode += "0"};
            hexcode += j.toString(16);
            found = true;}
-        } 
-        if (found) {return hexcode;}
-        else {return "null";}
-     } }
+        } }
+   if (found) {return hexcode;}
+   else {return "null";} }
 
 function hextoquad(hexcode) {
   quadmask = "000000000000000000000000"; // convert hexcode to quadcode q
