@@ -53,7 +53,8 @@
 
 function share() {navigator.share({text: memcode});}
 	
-function test() {var copyText = memcode;
+function test() {
+  copyText = memcode;
 
   // Select the text field
   copyText.select();
@@ -73,7 +74,7 @@ function GetMap() {
     Microsoft.Maps.Events.addHandler(map, 'click', // event handler for map click
 				     function(e) {mapclick(e);} ); }
 
-function mapclick() {console.log('Map clicked');
+function mapclick(e) {console.log('Map clicked');
 		     document.getElementById("out_lat").value = e.location.latitude.toFixed(5);		
 	             document.getElementById("out_lon").value = e.location.longitude.toFixed(5);
                      encode(e.location.latitude, e.location.longitude);
