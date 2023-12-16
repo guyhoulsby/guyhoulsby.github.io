@@ -71,22 +71,24 @@ function GetMap() {
                                map.entities.push(pin); }); //Add the pushpin to the map
     }
 
-function checkvalid(box, tex) {
+function checkvalid(box) {
   tex = document.getElementById(box).value.toLowerCase();
   found = false;
   for (let j = 0; j < 256; j++) 
      {if (tex == words[j]) {found = true;} } 
-  if (!found) {document.getElementById("out_err").value = tex + " not valid";
-	       valid = false;} }
+  if (found) {return tex;}
+  else {document.getElementById("out_err").value = tex + " not valid";
+	valid = false;
+        return "null";} }
 
 function buildmem() {
   valid = true;
-  checkvalid("t1", c1);
-  checkvalid("t2", c2);
-  checkvalid("t3", c3);
-  checkvalid("t4", c4);
-  checkvalid("t5", c5);
-  checkvalid("t6", c6);
+  c1 = checkvalid("t1");
+  c2 = checkvalid("t2");
+  c3 = checkvalid("t3");
+  c4 = checkvalid("t4");
+  c5 = checkvalid("t5");
+  c6 = checkvalid("t6");
   if (valid) {memcode = c1 + "." + c2 + "." + c3 + "-" + c4 + "." + c5 + "." + c6;} }
 
 function putmem() {
