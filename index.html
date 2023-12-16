@@ -32,6 +32,7 @@
   .texgen {type: "text";
            text-align: center;
 	   width: 15vw;
+	   min-width: 120px;
 	   font-size: 18px;}
 </style>
 
@@ -61,16 +62,13 @@ function test() {
     //putmessage(memcode);
     //let copyGfGText = document.getElementById("out_err");
     let copyGfGText = memcode;
-    
     /* Select the text field */
     copyGfGText.select();
-    
     /* Copy the text inside the text field */
     document.execCommand("copy");
-        
     /* Use below command to access the 
        value of copied text */
-    console.log(Copied " + copyGfGText.value);}
+    console.log("Copied " + copyGfGText.value);}
 
 	
 function GetMap() {
@@ -448,7 +446,7 @@ Version: 1.10
     <input class="texgen" id="out_lon" name="out_lon">
     <button onclick="fromLatLong()" class="button buttonwide">... get from Lat, Long</button></p>
 <p>Messages: <input type="text" id="out_err" name="out_err" style="color:red" disabled></p>
-<p><b>Click anywhere on the map to show code:</b></p>
+<p><b>Click on the map to show code:</b></p>
 	
 <div id="myMap" style="position:relative;width:100vw;height:50vh;"></div>
 	
