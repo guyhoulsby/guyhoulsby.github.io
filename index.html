@@ -49,8 +49,6 @@ else {console.log("Desktop device detected");
 function reporttype() {
 	if (mobile) {document.getElementById("out_err").value = "Mobile device";}
         else {document.getElementById("out_err").value = "Desktop device";} }
-//document.addEventListener("DOMContentLoaded", reporttype());
-//window.onload = reporttype()
 </script>
 
 <script type='text/javascript'>
@@ -99,7 +97,7 @@ function putmem() {
   document.getElementById("t5").value = memcode.substr(16,3);
   document.getElementById("t6").value = memcode.substr(20,3); }
  
-function test() {
+function putonmap() {
   buildmem();
   if (!valid) {document.getElementById("out_err").value = "Location not found";
                return;}
@@ -117,10 +115,23 @@ function test() {
   document.getElementById("out_lon").value = lon.toFixed(5); } 
 
 function fromLatLong() {
-  encode(document.getElementById("out_lat").value, document.getElementById("out_lon").value);
-  found = true;
-  putmem();
-  document.getElementById("out_hex").value = hexcode; }
+    lvalid = true;
+    lat = parseFloat(document.getElementById("out_lat").value)
+    lon = parseFloat(document.getElementById("out_lon").value)
+    if (lon >= 180.0) {lon -= 360.0}
+    if (lon < -180.0) {document.getElementById("out_err").value = "Longitude invalid";
+		       lvalid = false;}
+    if (lon > 180.0)  {document.getElementById("out_err").value = "Longitude invalid";
+		       lvalid = false;}
+    if (lat < -90.0) {document.getElementById("out_err").value = "Latitude invalid";
+		       lvalid = false;}
+    if (lat > 90.0) {document.getElementById("out_err").value = "Latitude invalid";
+		       lvalid = false;}
+    if (lvalid) {encode(lat, lon);
+                 valid = true;
+                 putmem();
+                 document.getElementById("out_hex").value = hexcode; }
+    }
 
 function fromMemCode() {
   buildmem();
@@ -371,7 +382,7 @@ function check(tex) {
 Version: 1.8
 <p><a href="convert.html">Go to conversion page</a></p>
 <p><button onclick="getLocation()" class="button button1">Get my location</button>
-   <button class="button button1" onclick="test()">Put on map</button></p>
+   <button class="button button1" onclick="putonmap()">Put on map</button></p>
 <table style="width:100vw">
   <tr>
     <td>
