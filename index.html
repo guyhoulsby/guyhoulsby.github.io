@@ -114,7 +114,8 @@ function gethex() {
 	if (hexcode.length > 12) {putmessage("HexCode more than 12 characters: truncated");}
 	hexcode = hexcode + "c00000000000";
 	hexcode = hexcode.substr(0,12);
-	if (hexcode.length != 12) {putmessage("HexCode invalid"); return "null";}
+	let Reg_Exp = /[0-9a-fA-F]/;
+        if (!Reg_Exp.test(hexcode)) {putmessage("HexCode invalid"); return "null";}
         num = parseInt(hexcode,16);
 	if (isNaN(num)) {putmessage("HexCode invalid"); return "null";}
         return hexcode;}
