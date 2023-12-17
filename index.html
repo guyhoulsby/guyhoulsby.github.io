@@ -118,7 +118,8 @@ function gethex() {
         if (!Reg_Exp.test(hexcode)) {putmessage("HexCode invalid"); return "null";}
         num = parseInt(hexcode,16);
 	if (isNaN(num)) {putmessage("HexCode invalid"); return "null";}
-        return hexcode;}
+        puthex(hexcode);
+	return hexcode;}
 function puthex(hexcode) {document.getElementById("out_hex").value = hexcode;}
 
 function getlatlong()
@@ -480,7 +481,7 @@ function hextoquad(hexcode) {
     <input class="texll" id="out_lat" name="out_lat"> 
     <input class="texll" id="out_lon" name="out_lon">
     <button onclick="fromLatLong()" class="button buttonvnarrow">... use</button><br>
-    Messages: <input type="text" id="out_err" name="out_err" style="color:red" disabled><br>
+    Messages: <input type="text" id="out_err" name="out_err" style="color:red, size:32" disabled><br>
 <b>Click on map to show code:</b>
 	
 <div id="myMap" style="position:relative;width:100vw;height:50vh;"></div>
