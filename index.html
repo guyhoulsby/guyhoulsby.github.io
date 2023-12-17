@@ -110,6 +110,10 @@ function checkvalidword(box) {
 
 function gethex() {
 	hexcode = document.getElementById("out_hex").value;
+	if (hexcode.length < 12) {putmessage("HexCode less than 12 characters: padded");}
+	if (hexcode.length > 12) {putmessage("HexCode more than 12 characters: truncated");}
+	hexcode = hexcode + "c00000000000";
+	hexcode = hexcode.substr(0,12);
 	if (hexcode.length != 12) {putmessage("HexCode invalid"); return "null";}
         num = parseInt(hexcode,16);
 	if (isNaN(num)) {putmessage("HexCode invalid"); return "null";}
@@ -249,8 +253,8 @@ function check(tex) {
 </script>
 	
 <script type='text/javascript'> // functions for coding and decoding
-	
-const words = ["ace","act","add","age", "aid","aim","air","all",
+
+const words_orig = ["ace","act","add","age", "aid","aim","air","all",
                "and","ant","ape","arm", "art","ash","ask","ate",
                "bad","bag","bar","bat", "bay","bed","beg","bet",
                "bid","big","bin","bit", "box","boy","bun","bus",
@@ -278,6 +282,42 @@ const words = ["ace","act","add","age", "aid","aim","air","all",
                "rat","raw","ray","red", "rib","rid","rig","rim",
 
                "rip","rob","rod","rot", "rub","rug","rum","run",
+               "sad","sag","sap","sat", "saw","say","set","she",
+               "shy","sin","sip","sir", "sit","six","ski","sky",
+               "sly","spy","sum","sun", "tab","tag","tan","tap",
+               "tar","tax","tea","ten", "the","tie","tin","tip",
+               "tom","top","toy","try", "tub","use","van","vat",
+               "vet","war","was","wax", "way","web","who","why",
+               "wig","win","wit","yes", "yet","you","zip","zoo"];
+
+const words = ["ace","act","add","age", "aid","aim","air","all",
+               "and","ant","ape","arm", "art","ash","ask","ate",
+               "bad","bag","bar","bat", "bay","bed","beg","bet",
+               "bid","big","bin","bit", "box","boy","bun","bus",
+               "can","cap","car","cat", "cod","cot","cow","cry",
+               "cup","cut","dab","day", "den","did","dim","dip",
+               "dog","don","dry","dug", "ear","eat","egg","elf",
+               "eel","end","eve","fan", "far","fat","fed","fee",
+
+               "fen","few","fig","fin", "fit","fix","fly","fog",
+               "for","fox","fry","fun", "gap","gas","get","gin",
+               "got","gum","gym","had", "ham","has","hat","hay",
+               "hem","hen","hid","him", "hip","hit","hog","hop",
+               "hot","how","hub","hug", "hum","hut","ice","ill",
+               "imp","ink","jam","jar", "jaw","jay","jet","job",
+               "jog","joy","jug","key", "kid","kit","lab","lad",
+               "lag","lap","law","lay", "leg","let","lid","lie",
+
+               "lip","lit","log","lot", "low","mad","man","map",
+               "mat","may","men","mix", "mob","mop","mud","mug",
+               "nap","net","new","nip", "nod","not","now","nut",
+               "oak","odd","off","oil", "old","one","orb","our",
+               "out","owe","owl","own", "pad","pan","pat","paw",
+               "pay","peg","pen","pet", "pin","pit","pod","pop",
+               "pot","pub","pun","put", "rag","ram","ran","rap",
+               "rat","raw","ray","red", "rib","rid","rig","rim",
+
+               "mid","rob","rod","rot", "rub","rug","rum","run",
                "sad","sag","sap","sat", "saw","say","set","she",
                "shy","sin","sip","sir", "sit","six","ski","sky",
                "sly","spy","sum","sun", "tab","tag","tan","tap",
