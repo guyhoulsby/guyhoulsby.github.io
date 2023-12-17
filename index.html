@@ -296,13 +296,8 @@ function encode(lat, lon) { // assumes lat and long are valid floats
     else if (xi == 1) {q = "0"}
     else if (xi == 2) {q = "1"}
     else {q = "3"}
-    if (y < 1.0) 
-       {q = q + "0";
-        t = "ts"; }
-    else if (y >= 2.0) 
-       {q = q + "3";
-        y -= 2.0;
-        t = "tn"; }
+    if (y < 1.0) {q = q + "0"; t = "ts";}
+    else if (y >= 2.0) {q = q + "3"; y -= 2.0; t = "tn";}
     else 
        {x = 2.0*x;
         xi = Math.floor(x) + 1;
@@ -312,9 +307,7 @@ function encode(lat, lon) { // assumes lat and long are valid floats
         t = "q"; }
     for (let i = 0; i < 22; i++) { // code the remaining 22 digits
         if (t == "ts") 
-           {if (y < 0.5) 
-               {y = 2.0*y;
-                q = q + "0"; }
+           {if (y < 0.5) {y = 2.0*y; q = q + "0";}
             else 
                {x = 3.0*x;
                 y = 2.0*y - 1.0;
@@ -323,9 +316,7 @@ function encode(lat, lon) { // assumes lat and long are valid floats
                 x -= Math.floor(x);
                 t = "q"; } }
         else if (t == "tn") 
-           {if (y >= 0.5) 
-               {y = 2.0*y - 1.0;
-                q = q + "3"; }
+           {if (y >= 0.5) {y = 2.0*y - 1.0; q = q + "3";}
             else 
                {x = 3.0*x;
                 y = 2.0*y;
@@ -344,7 +335,7 @@ function encode(lat, lon) { // assumes lat and long are valid floats
     memcode = hextomem(hexcode); }
 	
 function decode(memcode) {
-    putmessage(memcode);
+    //putmessage(memcode);
     hexcode = memtohex(memcode);
     q = hextoquad(hexcode);
     q0 = q.substr(0,1);           // decode first digit
@@ -355,10 +346,8 @@ function decode(memcode) {
     xran = 90.0;
     yran = 60.0;
     q1 = parseInt(q.substr(1,1)); // decode second digit
-    if (q1 == 0) {y = -90.0;
-                  t = "ts"; }
-    else if (q1 == 3) {y = 30.0;
-                       t = "tn"; }
+    if (q1 == 0) {y = -90.0; t = "ts";}
+    else if (q1 == 3) {y = 30.0; t = "tn";}
     else {x += 45.0*(q1 - 1);
           y = -30.0;
           xran = 45.0;
@@ -367,16 +356,14 @@ function decode(memcode) {
         yran = 0.5*yran;
         qi = parseInt(q.substr(2+i,1));
         if (t == "ts") 
-           {if (qi == 0) 
-               {}
+           {if (qi == 0) {}
             else 
                {xran = 30.0;
                 x += xran*(qi - 1);
                 y += yran;
                 t = "q"; } }
         else if (t == "tn") 
-                {if (qi == 3) 
-                    {y += yran; }
+                {if (qi == 3) {y += yran;}
                  else 
                     {xran = 30.0;
                      x += xran*qi;
