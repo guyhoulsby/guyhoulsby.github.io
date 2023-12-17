@@ -52,16 +52,17 @@ function putmessage(text) {document.getElementById("out_err").value = text;}
 function share() {navigator.share({text: memcode});}
 	
 function test() {
-    /* Get the text field */
-    putmessage(memcode);
-    let copyGfGText = document.getElementById("out_err");
-    /* Select the text field */
-    copyGfGText.select();
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
-    /* Use below command to access the 
-       value of copied text */
-    console.log("Copied " + copyGfGText.value);}
+  putmessage(memcode);
+  let text = document.getElementById('out_err').innerHTML;
+  const copyContent = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      console.log('Content copied to clipboard');
+      console.log(text);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    } }
+}
 	
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
@@ -344,44 +345,39 @@ function encode(lat, lon) { // assumes lat and long are valid floats
     else {q = "3"}
     if (y < 1.0) {q = q + "0"; t = "ts";}
     else if (y >= 2.0) {q = q + "3"; y -= 2.0; t = "tn";}
-    else 
-       {x = 2.0*x;
-        xi = Math.floor(x) + 1;
-        q = q + xi.toString();    
-        x -= Math.floor(x);
-        y -= 1.0;
-        t = "q"; }
+    else {x = 2.0*x;
+          xi = Math.floor(x) + 1;
+          q = q + xi.toString();    
+          x -= Math.floor(x);
+          y -= 1.0;
+          t = "q"; }
     for (let i = 0; i < 22; i++) { // code the remaining 22 digits
         if (t == "ts") 
            {if (y < 0.5) {y = 2.0*y; q = q + "0";}
-            else 
-               {x = 3.0*x;
-                y = 2.0*y - 1.0;
-                xi = Math.floor(x) + 1;
-                q = q + xi.toString();
-                x -= Math.floor(x);
-                t = "q"; } }
+            else {x = 3.0*x;
+                  y = 2.0*y - 1.0;
+                  xi = Math.floor(x) + 1;
+                  q = q + xi.toString();
+                  x -= Math.floor(x);
+                  t = "q"; } }
         else if (t == "tn") 
            {if (y >= 0.5) {y = 2.0*y - 1.0; q = q + "3";}
-            else 
-               {x = 3.0*x;
-                y = 2.0*y;
-                xi = Math.floor(x);
-                q = q + xi.toString();
-                x -= Math.floor(x);
-                t = "q"; } }
-        else 
-           {x = 2.0*x;
-            y = 2.0*y;
-            ci = Math.floor(x) + 2*Math.floor(y);
-            q = q + ci.toString();
-            x -= Math.floor(x);
-            y -= Math.floor(y); } }
+            else {x = 3.0*x;
+                  y = 2.0*y;
+                  xi = Math.floor(x);
+                  q = q + xi.toString();
+                  x -= Math.floor(x);
+                  t = "q"; } }
+        else {x = 2.0*x;
+              y = 2.0*y;
+              ci = Math.floor(x) + 2*Math.floor(y);
+              q = q + ci.toString();
+              x -= Math.floor(x);
+              y -= Math.floor(y); } }
     hexcode = quadtohex(q);
     memcode = hextomem(hexcode); }
 	
 function decode(memcode) {
-    //putmessage(memcode);
     hexcode = memtohex(memcode);
     q = hextoquad(hexcode);
     q0 = q.substr(0,1);           // decode first digit
@@ -403,24 +399,21 @@ function decode(memcode) {
         qi = parseInt(q.substr(2+i,1));
         if (t == "ts") 
            {if (qi == 0) {}
-            else 
-               {xran = 30.0;
-                x += xran*(qi - 1);
-                y += yran;
-                t = "q"; } }
+            else {xran = 30.0;
+                  x += xran*(qi - 1);
+                  y += yran;
+                  t = "q"; } }
         else if (t == "tn") 
                 {if (qi == 3) {y += yran;}
-                 else 
-                    {xran = 30.0;
-                     x += xran*qi;
-                     t = "q"; } } 
-        else 
-           {xran = 0.5*xran;
-            yi = Math.floor(qi / 2);
-            xi = qi - 2*yi;
-            y += yran*yi;
-            x += xran*xi; } }
-    lon = x + 0.5*xran;
+                 else {xran = 30.0;
+                       x += xran*qi;
+                       t = "q"; } } 
+        else {xran = 0.5*xran;
+              yi = Math.floor(qi / 2);
+              xi = qi - 2*yi;
+              y += yran*yi;
+              x += xran*xi; } }
+    lon = x + 0.5*xran;  // add half final dimension
     lat = y + 0.5*yran; }
 
 function quadtohex(q)
@@ -435,7 +428,7 @@ function hextomem(hexcode)
      for (let i = 0; i < 6; i++) 
        {num = parseInt(hexcode.substr(2*i,2),16);
         memcode += words[num];
-        if (i == 0) {memcode += "."} 
+        if (i == 0) {memcode += "."} // add standard separators
         if (i == 1) {memcode += "."} 
         if (i == 2) {memcode += "-"} 
         if (i == 3) {memcode += "."} 
@@ -452,8 +445,7 @@ function memtohex(memcode) // convert memcode to hexcode
         {if (tex == words[j]) 
           {if (j.toString(16).length == 1) {hexcode += "0"};
            hexcode += j.toString(16);
-           found = true;}
-        } }
+           found = true;} } }
    if (found) {return hexcode;}
    else {return "null";} }
 
@@ -471,7 +463,8 @@ function hextoquad(hexcode) {
    <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="share()" class="button buttonnarrow">Share</button>
    <a href="help.html">Help</a>
-   <!--<button onclick="test()" class="button buttonnarrow">Test</button>--><br>
+   <button onclick="test()" class="button buttonnarrow">Test</button>
+   <br>
    <input class="texmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
    <input class="texmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
    <input class="texmem" id="t3" name="t3" oninput=ft3()> 
