@@ -35,6 +35,9 @@
           text-align: center;
 	  width: 82px;
 	  font-size: 16px;}
+  .errbox {type: "text";
+	   size: 32;
+	   color: red;}
 </style>
 
 <script type='text/javascript' // load BING map
@@ -481,7 +484,7 @@ function hextoquad(hexcode) {
     <input class="texll" id="out_lat" name="out_lat"> 
     <input class="texll" id="out_lon" name="out_lon">
     <button onclick="fromLatLong()" class="button buttonvnarrow">... use</button><br>
-    Messages: <input type="text" id="out_err" name="out_err" style="color:red, size:32" disabled><br>
+    Messages: <input type="text" id="out_err" name="out_err" class="errbox" disabled><br>
 <b>Click on map to show code:</b>
 	
 <div id="myMap" style="position:relative;width:100vw;height:50vh;"></div>
