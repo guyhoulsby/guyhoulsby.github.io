@@ -52,9 +52,10 @@ function putmessage(text) {document.getElementById("out_err").value = text;}
 function share() {navigator.share({text: memcode});}
 	
 
-  const test = async () => {
-      putmessage(memcode);
-      let text = document.getElementById('out_err').value;
+  const copymem = async () => {
+    // putmessage(memcode);
+    //  let text = document.getElementById('out_err').value;
+      let text = memcode;
       try {
       await navigator.clipboard.writeText(text);
       console.log('Content copied to clipboard');
@@ -462,8 +463,8 @@ function hextoquad(hexcode) {
 <H2>GTHcode</H2> Version: 1.12<br>
    <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="share()" class="button buttonnarrow">Share</button>
+   <button onclick="copymem()" class="button buttonnarrow">Copy</button>
    <a href="help.html">Help</a>
-   <button onclick="test()" class="button buttonnarrow">Test</button>
    <br>
    <input class="texmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
    <input class="texmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
