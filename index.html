@@ -109,7 +109,12 @@ function checkvalidword(box) {
 	valid = false;
         return "null";} } 
 
-function gethex() {return document.getElementById("out_hex").value;}
+function gethex() {
+	hexcode = document.getElementById("out_hex").value;
+	if (hexcode.length != 16) {putmessage("HexCode invalid"); return "null";}
+        num = parseInt(hexcode,16);
+	if (isNaN(num)) {putmessage("HexCode invalid"); return "null";}
+        return hexcode;}
 function puthex(hexcode) {document.getElementById("out_hex").value = hexcode;}
 
 function getlatlong()
@@ -183,17 +188,13 @@ function getLocation() {
 function showError(error) {
   switch(error.code) {
     case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
-      break;
+      x.innerHTML = "User denied the request for Geolocation."; break;
     case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
-      break;
+      x.innerHTML = "Location information is unavailable."; break;
     case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
-      break;
+      x.innerHTML = "The request to get user location timed out."; break;
     case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
-      break; } }
+      x.innerHTML = "An unknown error occurred."; break; } }
 	
 function putPos(position) {
   clearmessage();
