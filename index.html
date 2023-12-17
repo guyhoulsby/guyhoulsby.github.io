@@ -159,7 +159,7 @@ function fromLatLong() {
                valid = true;
                putmem();
                puthex(hexcode); 
-  	       pulatlong(lat, lon); } }
+  	       putlatlong(lat, lon); } }
 
 function fromMemCode() {
   clearmessage();
@@ -200,7 +200,7 @@ function putPos(position) {
   found = true;
   lat = position.coords.latitude;
   lon = position.coords.longitude;
-  putlatlong(lat, long);
+  putlatlong(lat, lon);
   encode(lat, lon);
   putmem();
   puthex(hexcode);
