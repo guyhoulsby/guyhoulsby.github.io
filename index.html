@@ -22,8 +22,7 @@
   .buttonwide {width: 150px;}
   .buttonnarrow {width: 10vw; 
 	         min-width: 96px;}
-  .buttonvnarrow {width: 10vw; 
-	          min-width: 56px;}
+  .buttonvnarrow {width: 56px;}
   .texmem {type: "text";
            text-align: center;
 	  maxlength: 3;
@@ -44,19 +43,6 @@
 
 <script type='text/javascript' // load BING map
   src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ArPM1-wZaL7eXbyDyv75z434nDeiThBHD-TQnHqoxxQwFdYQEcxc_WdyUA6vGl2O' async defer>
-</script>
-
-<script type='text/javascript'> // detect mobile or desktop device
-  function isMobile() {
-    const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-    return regex.test(navigator.userAgent); }	
-  if (isMobile()) {console.log("Mobile device detected");
-                   mobile = true;}
-  else {console.log("Desktop device detected"); 
-        mobile = false;}
-  function reporttype() {
-    if (mobile) {putmessage("Mobile device");}
-    else {putmessage("Desktop device");} }
 </script>
 
 <script type='text/javascript'> // functions related to the interface
@@ -246,6 +232,19 @@ function ft6() {if (document.getElementById("t6").value.length == 3) {check(docu
 function check(tex) {     
   for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
   document.getElementById("out_err").value = "Word not found"; }
+</script>
+
+<script type='text/javascript'> // detect mobile or desktop device
+  function isMobile() {
+    const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return regex.test(navigator.userAgent); }	
+  if (isMobile()) {console.log("Mobile device detected");
+                   mobile = true;}
+  else {console.log("Desktop device detected"); 
+        mobile = false;}
+  function reporttype() {
+    if (mobile) {putmessage("Mobile device");}
+    else {putmessage("Desktop device");} }
 </script>
 	
 <script type='text/javascript'> // functions for coding and decoding
