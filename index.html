@@ -184,7 +184,8 @@ function fromMemCode() {
 function fromHexCode() {
   clearmessage();
   hexcode = gethex(); 
-  if (hexcode != "null") {hextomem(hexcode);
+  if (hexcode != "null") {putmessage(hexcode);
+			  hextomem(hexcode);
                           putmem();
                           decode(memcode);
                           putlatlong(lat, lon); } }
