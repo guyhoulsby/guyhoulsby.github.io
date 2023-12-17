@@ -81,7 +81,7 @@ function mapclick(e) {console.log('Map clicked');
                                                       {title: memcode,
 						       color: "green",
                                                        text: 'C'} );
-                     map.entities.push(pin); }; // add to map
+                     map.entities.push(pin); } // add to map
 	
 function getmem() {
   valid = true;
@@ -159,7 +159,7 @@ function fromLatLong() {
                valid = true;
                putmem();
                puthex(hexcode); 
-  	       pulatlong(lat, lon); }
+  	       pulatlong(lat, lon); } }
 
 function fromMemCode() {
   clearmessage();
@@ -179,6 +179,7 @@ function fromHexCode() {
 function getLocation() {
   if (navigator.geolocation) {navigator.geolocation.getCurrentPosition(putPos, showError);} 
   else {x.innerHTML = "Geolocation is not supported by this browser.";} }
+
 function showError(error) {
   switch(error.code) {
     case error.PERMISSION_DENIED:
@@ -432,8 +433,7 @@ function hextoquad(hexcode) {
 </script>
 
 <body>
-<H2>GTHcode</H2>
-Version: 1.11<br>
+<H2>GTHcode</H2> Version: 1.12<br>
    <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="share()" class="button buttonnarrow">Share</button>
    <!--<button onclick="test()" class="button buttonnarrow">Test</button>--><br>
