@@ -54,7 +54,7 @@ function share() {navigator.share({text: memcode});}
 
   const test = async () => {
       putmessage(memcode);
-      let text = document.getElementById('out_err').innerHTML;
+      let text = document.getElementById('out_err').value;
       try {
       await navigator.clipboard.writeText(text);
       console.log('Content copied to clipboard');
