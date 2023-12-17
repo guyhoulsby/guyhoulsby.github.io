@@ -1,1 +1,29 @@
-
+<body>
+<H2>GTHcode</H2> Version: 1.12<br>
+   <button onclick="getLocation()" class="button buttonwide">Get my location</button>
+   <button onclick="share()" class="button buttonnarrow">Share</button>
+   <a href="help.html">Help</a>
+   <!--<button onclick="test()" class="button buttonnarrow">Test</button>--><br>
+   <input class="texmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
+   <input class="texmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
+   <input class="texmem" id="t3" name="t3" oninput=ft3()> 
+   <button onclick="fromMemCode()" class="button buttonvnarrow">... use</button><br>
+   <input class="texmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
+   <input class="texmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
+   <input class="texmem" id="t6" name="t6" oninput=ft6()> 
+   <button class="button buttonnarrow" onclick="putonmap()">Put on map</button><br>
+   <label for="out_hex">HexCode:</label>
+    <input input class="texgen" id="out_hex" name="out_hex">
+    <button onclick="fromHexCode()" class="button buttonvnarrow">... use</button><br>
+    <label for="out_lat">Lat, Long:</label>
+    <input class="texll" id="out_lat" name="out_lat"> 
+    <input class="texll" id="out_lon" name="out_lon">
+    <button onclick="fromLatLong()" class="button buttonvnarrow">... use</button><br>
+    Messages: <input type="text" id="out_err" name="out_err" class="errbox" disabled><br>
+<b>Click on map to show code:</b>
+	
+<div id="myMap" style="position:relative;width:100vw;height:60vh;"></div>
+	
+<script type="text/javascript">reporttype();</script>
+</body>
+</html>
