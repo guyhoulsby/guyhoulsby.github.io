@@ -118,8 +118,8 @@ function gethex() {
 	hexcode = hexcode + "c00000000000";
 	hexcode = hexcode.substr(0,12);
 	let Reg_Exp = /[0-9a-fA-F]/;
-        for (let i = 0; i < 12; i++) 
-	  {if (!Reg_Exp.test(hexcode.substr(i,1)) {putmessage("HexCode invalid"); return "null"; } }
+        for (let i = 0; i < 12; i++) {
+	  if (!Reg_Exp.test(hexcode.substr(i,1)) {putmessage("HexCode invalid"); return "null"; } }
         num = parseInt(hexcode,16);
 	if (isNaN(num)) {putmessage("HexCode invalid"); return "null"; }
         puthex(hexcode);
