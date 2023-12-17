@@ -26,18 +26,15 @@
   .texmem {type: "text";
            text-align: center;
 	  maxlength: 3;
-          width: 10vw;
-	  min-width: 56px;
+          width: 56px;
 	  font-size: 20px;}
   .texgen {type: "text";
            text-align: center;
-	   width: 15vw;
-	   min-width: 120px;
+	   width: 120px;
 	   font-size: 16px;}
   .texll {type: "text";
            text-align: center;
-	   width: 12vw;
-	   min-width: 82px;
+	   width: 82px;
 	   font-size: 16px;}
 </style>
 
@@ -231,10 +228,12 @@ function ft6() {if (document.getElementById("t6").value.length == 3) {check(docu
 
 function check(tex) {     
   for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
-  document.getElementById("out_err").value = "Word not found"; }
+  putmessage("Word not found"); }
+
 </script>
 
 <script type='text/javascript'> // detect mobile or desktop device
+  function putmessage(text) {document.getElementById("out_err").value = text;}
   function isMobile() {
     const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
     return regex.test(navigator.userAgent); }	
@@ -245,9 +244,11 @@ function check(tex) {
   function reporttype() {
     if (mobile) {putmessage("Mobile device");}
     else {putmessage("Desktop device");} }
+	
 </script>
 	
 <script type='text/javascript'> // functions for coding and decoding
+	
 const words = ["ace","act","add","age", "aid","aim","air","all",
                "and","ant","ape","arm", "art","ash","ask","ate",
                "bad","bag","bar","bat", "bay","bed","beg","bet",
@@ -426,7 +427,8 @@ function hextoquad(hexcode) {
   q = parseInt(hexcode, 16).toString(4);
   len = q.length;
   q = quadmask.substr(0,24-len) + q; 
-  return q}
+  return q;}
+	
 </script>
 
 <body>
