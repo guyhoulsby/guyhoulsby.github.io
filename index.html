@@ -443,7 +443,7 @@ function hextomem(hexcode)
      return memcode; } 
 
 function memtohex(memcodein) // convert memcode to hexcode
-  {memcode = memcodein.replaceAll(/[,.:- ]/g, ""); // remove seperators
+  {memcode = memcodein.replaceAll(/[,.: \-]/g, ""); // remove seperators
    hexcode = ""; 
    for (let i = 0; i < 6; i++) 
      {tex = memcode.substr(3*i,3).toLowerCase();
