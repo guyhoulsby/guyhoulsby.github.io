@@ -51,18 +51,18 @@ function putmessage(text) {document.getElementById("out_err").value = text;}
 
 function share() {navigator.share({text: memcode});}
 	
-function test() {
-  putmessage(memcode);
-  let text = document.getElementById('out_err').innerHTML;
-  const copyContent = async () => {
-    try {
+
+  const test = async () => {
+      putmessage(memcode);
+      let text = document.getElementById('out_err').innerHTML;
+      try {
       await navigator.clipboard.writeText(text);
       console.log('Content copied to clipboard');
       console.log(text);
     } catch (err) {
       console.error('Failed to copy: ', err);
     } }
-}
+
 	
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
