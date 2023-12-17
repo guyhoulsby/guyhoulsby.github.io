@@ -176,10 +176,10 @@ function fromMemCode() {
 function fromHexCode() {
   clearmessage();
   hexcode = gethex(); 
-  hextomem(hexcode);
-  putmem();
-  decode(memcode);
-  putlatlong(lat, lon); }
+  if (hexcode != "null") {hextomem(hexcode);
+                          putmem();
+                          decode(memcode);
+                          putlatlong(lat, lon); } }
 
 function getLocation() {
   if (navigator.geolocation) {navigator.geolocation.getCurrentPosition(putPos, showError);} 
