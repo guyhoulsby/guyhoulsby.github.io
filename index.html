@@ -20,22 +20,21 @@
 	   margin: 2px 2px;
            cursor: pointer;}
   .buttonwide {width: 150px;}
-  .buttonnarrow {width: 10vw; 
-	         min-width: 96px;}
+  .buttonnarrow {width:  96px;}
   .buttonvnarrow {width: 56px;}
   .texmem {type: "text";
            text-align: center;
-	  maxlength: 3;
-          width: 56px;
-	  font-size: 20px;}
+	   maxlength: 3;
+           width: 56px;
+	   font-size: 20px;}
   .texgen {type: "text";
            text-align: center;
 	   width: 120px;
 	   font-size: 16px;}
   .texll {type: "text";
-           text-align: center;
-	   width: 82px;
-	   font-size: 16px;}
+          text-align: center;
+	  width: 82px;
+	  font-size: 16px;}
 </style>
 
 <script type='text/javascript' // load BING map
@@ -111,7 +110,7 @@ function checkvalidword(box) {
 
 function gethex() {
 	hexcode = document.getElementById("out_hex").value;
-	if (hexcode.length != 16) {putmessage("HexCode invalid"); return "null";}
+	if (hexcode.length != 12) {putmessage("HexCode invalid"); return "null";}
         num = parseInt(hexcode,16);
 	if (isNaN(num)) {putmessage("HexCode invalid"); return "null";}
         return hexcode;}
