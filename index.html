@@ -442,10 +442,11 @@ function hextomem(hexcode)
         if (i == 4) {memcode += "."} } 
      return memcode; } 
 
-function memtohex(memcode)
-  {hexcode = ""; // convert memcode to hexcode
+function memtohex(memcodein) // convert memcode to hexcode
+  {memcode = memcodein.replaceAll(/[,.:- ]/g,"")); // remove seperators
+   hexcode = ""; 
    for (let i = 0; i < 6; i++) 
-     {tex = memcode.substr(4*i,3).toLowerCase();
+     {tex = memcode.substr(3*i,3).toLowerCase();
       found = false;
       for (let j = 0; j < 256; j++) 
         {if (tex == words[j]) 
