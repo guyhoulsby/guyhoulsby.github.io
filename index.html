@@ -64,14 +64,14 @@ function share() {navigator.share({text: memcode});}
       console.error('Failed to copy: ', err);
     } }
 
-	
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
     initloc = new Microsoft.Maps.Location(54.0, -2.0);
     map.setView({center: initloc,
                  zoom: 8 });
     Microsoft.Maps.Events.addHandler(map, 'click', // event handler for map click
-				     function(e) {mapclick(e);} ); }
+//				     function(e) {mapclick(e);} ); }
+				     mapclick(e) ); }
 
 function mapclick(e) {console.log('Map clicked');
 		     document.getElementById("out_lat").value = e.location.latitude.toFixed(5);		
