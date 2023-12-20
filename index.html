@@ -409,7 +409,7 @@ function hextomem(hexcode)
      for (let i = 0; i < 6; i++) 
        {num = parseInt(hexcode.substr(2*i,2),16);
         memcode += words[num];
-	if (i < 5) {memcode += "..-..".substr(i,1)} // add standard separators
+	if (i < 5) {memcode += "..-..".substr(i,1)} }// add standard separators
 //         {memcode += "."} 
   //      if (i == 1) {memcode += "."} 
  //       if (i == 2) {memcode += "-"} 
@@ -437,7 +437,6 @@ function hextoquad(hexcode) {
   len = q.length;
   q = quadmask.substr(0,24-len) + q; 
   return q;}
-	
 </script>
 
 <body>
