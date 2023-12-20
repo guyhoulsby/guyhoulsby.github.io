@@ -327,7 +327,12 @@ const words = ["ace","act","add","age", "aid","aim","air","all",
                "vet","war","was","wax", "way","web","who","why",
                "wig","win","wit","yes", "yet","you","zip","zoo"];
 
-function encode(lat, lon) { // assumes lat and long are valid floats
+function encode(lat, lon) // assumes lat and long are valid floats
+    {quadcode = latlongtoquad(lat,long);
+     hexcode  = quadtohex(quadcode);
+     memcode  = hextomem(hexcode); }
+
+function latlongtoquad(lat,long) { // assumes lat and long are valid floats
     if (lon >= 180.0) {lon -= 360.0}
     x = (lon + 180.0) / 90.0;
     y = (lat +  90.0) / 60.0;
@@ -345,7 +350,7 @@ function encode(lat, lon) { // assumes lat and long are valid floats
           x -= Math.floor(x);
           y -= 1.0;
           t = "q"; }
-    for (let i = 0; i < 22; i++) { // code the remaining 22 digits
+    for (let i = 0; i < 22; i++) { // code the remaining digits
         if (t == "ts") 
            {if (y < 0.5) {y = 2.0*y; q = q + "0";}
             else {x = 3.0*x;
@@ -368,12 +373,14 @@ function encode(lat, lon) { // assumes lat and long are valid floats
               q = q + ci.toString();
               x -= Math.floor(x);
               y -= Math.floor(y); } }
-    hexcode = quadtohex(q);
-    memcode = hextomem(hexcode); }
+    return q;}
 	
-function decode(memcode) {
-    hexcode = memtohex(memcode);
-    q = hextoquad(hexcode);
+function decode(memcode)
+    {hexcode  = memtohex(memcode);
+     quadcode = hextoquad(hexcode);
+     quadtolatlong(quadcode); }
+
+function quadtolatlong(q){
     q0 = q.substr(0,1);           // decode first digit
     if (q0 == "2") {x = -180.0} 
     else if (q0 == "0") {x = -90.0} 
@@ -388,7 +395,7 @@ function decode(memcode) {
           y = -30.0;
           xran = 45.0;
           t = "q"; }
-    for (let i = 0; i < 22; i++) { // decode the remaining 22 digits
+    for (let i = 0; i < 22; i++) { // decode the remaining digits
         yran = 0.5*yran;
         qi = parseInt(q.substr(2+i,1));
         if (t == "ts") 
