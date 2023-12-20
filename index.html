@@ -199,6 +199,7 @@ function putPos(position) {
   encode(lat, lon);
   putmem();
   puthex(hexcode);
+  putmessage(position.coords.accuracy);
   try {map.entities.remove(pinme);} // delete old pin if it exists
   catch {}
   loc = new Microsoft.Maps.Location(lat, lon)
