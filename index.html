@@ -69,7 +69,7 @@ function GetMap() {
 function mapclick(e) {console.log('Map clicked');
 		      lat = e.location.latitude
 		      lon = e.location.longitude
-		      putlatlong(lat,long);
+		      putlatlong(lat,lon);
                       encode(lat, lon);
                       puthex(hexcode);
 		      putmem();
@@ -224,17 +224,6 @@ function putPos(position) {
 function ft(tcurr, tnext) {text = document.getElementById(tcurr).value;
 			   if (text.length == 3) {check(text);
 						  document.getElementById(tnext).focus(); } }
-//function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
-//								      document.getElementById("t2").focus(); } }
-//function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
-//								      document.getElementById("t3").focus(); } }
-//function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
-//								      document.getElementById("t4").focus(); } }
-//function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
-//								      document.getElementById("t5").focus(); } }
-//function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
-//								      document.getElementById("t6").focus(); } }
-//function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
 
 function check(tex) {     
   for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
