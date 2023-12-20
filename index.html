@@ -96,13 +96,9 @@ function putmem() {
   document.getElementById("t6").value = memcode.substr(20,3); }
 function checkvalidword(box) {
   tex = document.getElementById(box).value.toLowerCase();
-  found = false;
-  for (let j = 0; j < 256; j++) 
-     {if (tex == words[j]) {found = true;} } 
+  found = check(tex);
   if (found) {return tex;}
-  else {putmessage(tex + " not valid");
-	valid = false;
-        return "null";} } 
+  else {valid = false; return "null";} } 
 
 function gethex() {
 	hexcode = document.getElementById("out_hex").value;
