@@ -199,7 +199,7 @@ function putPos(position) {
   encode(lat, lon);
   putmem();
   puthex(hexcode);
-  putmessage(position.coords.accuracy);
+  putmessage("Acuuracy: " + position.coords.accuracy.toString(5) + " m");
   try {map.entities.remove(pinme);} // delete old pin if it exists
   catch {}
   loc = new Microsoft.Maps.Location(lat, lon)
@@ -411,11 +411,6 @@ function hextomem(hexcode)
        {num = parseInt(hexcode.substr(2*i,2),16);
         memcode += words[num];
 	if (i < 5) {memcode += "..-..".substr(i,1)} }// add standard separators
-//         {memcode += "."} 
-  //      if (i == 1) {memcode += "."} 
- //       if (i == 2) {memcode += "-"} 
- //       if (i == 3) {memcode += "."} 
- //       if (i == 4) {memcode += "."} } 
      return memcode; } 
 
 function memtohex(memcode) // convert memcode to hexcode
