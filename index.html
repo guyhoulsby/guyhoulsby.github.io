@@ -67,18 +67,19 @@ function GetMap() {
 				     function(e) {mapclick(e);} ); }
 
 function mapclick(e) {console.log('Map clicked');
-		     document.getElementById("out_lat").value = e.location.latitude.toFixed(5);		
-	             document.getElementById("out_lon").value = e.location.longitude.toFixed(5);
-                     encode(e.location.latitude, e.location.longitude);
-                     document.getElementById("out_hex").value = hexcode;
-		     putmem();
-                     try {map.entities.remove(pin);} // delete old pin if it exists
-                     catch {}
-                     pin = new Microsoft.Maps.Pushpin(e.location,  // create pushpin
-                                                      {title: memcode,
-						       color: "green",
-                                                       text: 'C'} );
-                     map.entities.push(pin); } // add to map
+		      lat = e.location.latitude
+		      lon = e.location.longitude
+		      putlatlong(lat,long);
+                      encode(lat, lon);
+                      puthex(hexcode);
+		      putmem();
+                      try {map.entities.remove(pin);} // delete old pin if it exists
+                      catch {}
+                      pin = new Microsoft.Maps.Pushpin(e.location, // create pushpin
+                                                       {title: memcode,
+			  			        color: "green",
+                                                        text: 'C'} );
+                      map.entities.push(pin); } // add to map
 	
 function getmem() {
   valid = true;
@@ -220,6 +221,9 @@ function putPos(position) {
   map.setView({center: loc,  // recentre map to my location
                zoom: 10 }); }
 
+function ft(tcurr, tnext) {text = document.getElementById(tcurr).value;
+			   if (text.length == 3) {check(text);
+						  document.getElementById(tnext).focus(); } }
 function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
 								      document.getElementById("t2").focus(); } }
 function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
@@ -466,8 +470,8 @@ function hextoquad(hexcode) {
    <button onclick="share()" class="button buttonvnarrow">Share</button>
    <a href="help.html">Help</a>
    <br>
-   <input class="texmem" id="t1" name="t1" oninput=ft1()> <b>.</b>
-   <input class="texmem" id="t2" name="t2" oninput=ft2()> <b>.</b>
+   <input class="texmem" id="t1" name="t1" oninput=ft("t1","t2")> <b>.</b>
+   <input class="texmem" id="t2" name="t2" oninput=ft("t2","t3")> <b>.</b>
    <input class="texmem" id="t3" name="t3" oninput=ft3()> 
    <button onclick="fromMemCode()" class="button buttonvnarrow">... use</button><br>
    <input class="texmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
