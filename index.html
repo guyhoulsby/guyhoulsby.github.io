@@ -336,7 +336,7 @@ function encode(lat, lon) // assumes lat and long are valid floats
      hexcode  = quadtohex(quadcode);
      memcode  = hextomem(hexcode); }
 
-function latlongtoquad(lat,long) { // assumes lat and long are valid floats
+function latlongtoquad(lat,lon) { // assumes lat and long are valid floats
     if (lon >= 180.0) {lon -= 360.0}
     x = (lon + 180.0) / 90.0;
     y = (lat +  90.0) / 60.0;
