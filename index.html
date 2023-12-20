@@ -221,13 +221,15 @@ function putPos(position) {
   map.setView({center: loc,  // recentre map to my location
                zoom: 10 }); }
 
-function ft(tcurr, tnext) {text = document.getElementById(tcurr).value;
-			   if (text.length == 3) {check(text);
-						  document.getElementById(tnext).focus(); } }
+function ft(tcurr, tnext) 
+    {text = document.getElementById(tcurr).value;
+     if (text.length == 3) 
+         {if (check(text)) {document.getElementById(tnext).focus(); } } }
 
 function check(tex) {     
-  for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
-  putmessage("Word not found"); }
+  for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return true;} }
+  putmessage("Word not found: "+ tex);
+  return false; }
 
 </script>
 
