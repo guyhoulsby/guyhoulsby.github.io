@@ -61,8 +61,7 @@ const copymem = async () => {
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap');
     initloc = new Microsoft.Maps.Location(54.0, -2.0);
-    map.setView({center: initloc,
-                 zoom: 8 });
+    map.setView({center: initloc, zoom: 8 });
     Microsoft.Maps.Events.addHandler(map, 'click', // event handler for map click
 				     function(e) {mapclick(e);} ); }
 
@@ -76,9 +75,7 @@ function mapclick(e) {console.log('Map clicked');
                       try {map.entities.remove(pin);} // delete old pin if it exists
                       catch {}
                       pin = new Microsoft.Maps.Pushpin(e.location, // create pushpin
-                                                       {title: memcode,
-			  			        color: "green",
-                                                        text: 'C'} );
+                                                       {title: memcode, color: "green", text: 'C'} );
                       map.entities.push(pin); } // add to map
 	
 function getmem() {
@@ -123,23 +120,17 @@ function gethex() {
 function puthex(hexcode) {document.getElementById("out_hex").value = hexcode;}
 
 function getlatlong()
-  {lvalid = true;
-   lat = parseFloat(document.getElementById("out_lat").value)
+  {lat = parseFloat(document.getElementById("out_lat").value)
    lon = parseFloat(document.getElementById("out_lon").value)
-   if (isNaN(lat)) {putmessage("Latitude invalid");
-	            lvalid = false;}
-   if (isNaN(lon)) {putmessage("Longitude invalid");
-	            lvalid = false;}
+   if (isNaN(lat)) {putmessage("Latitude invalid"); return false;}
+   if (isNaN(lon)) {putmessage("Longitude invalid"); return false;}
    if (lon >= 180.0) {lon -= 360.0}
-   if (lon < -180.0) {putmessage("Longitude invalid");
-	              lvalid = false;}
-   if (lon > 180.0)  {putmessage("Longitude invalid");
-	              lvalid = false;}
-   if (lat < -90.0) {putmessage("Latitude invalid");
-	             lvalid = false;}
-   if (lat > 90.0) {putmessage("Latitude invalid");
-	            lvalid = false;} 
-   return lvalid;} 
+   if (lon < -180.0) {putmessage("Longitude invalid"); return false;}
+   if (lon > 180.0)  {putmessage("Longitude invalid"); return false;}
+   if (lat < -90.0) {putmessage("Latitude invalid"); return false;}
+   if (lat > 90.0) {putmessage("Latitude invalid"); return false;} 
+   return true;} 
+	
 function putlatlong(lat, long)
   {document.getElementById("out_lat").value = lat.toFixed(5);
    document.getElementById("out_lon").value = lon.toFixed(5); } 
@@ -154,9 +145,7 @@ function putonmap() {
   decode(memcode);
   loc = new Microsoft.Maps.Location(lat, lon)
   pincode = new Microsoft.Maps.Pushpin(loc,  // create pushpin
-                                       {title: memcode,
-                                        color: "blue",
-                                        text: 'D' } );
+                                       {title: memcode, color: "blue", text: 'D' } );
   map.entities.push(pincode);  // add to the map
   map.setView({center: loc});
   puthex(hexcode);
@@ -214,22 +203,19 @@ function putPos(position) {
   catch {}
   loc = new Microsoft.Maps.Location(lat, lon)
   pinme = new Microsoft.Maps.Pushpin(loc,  // create pushpin
-                                     {title: memcode,
-                                      color: "red",
-                                      text: 'M' } );
+                                     {title: memcode, color: "red", text: 'M'} );
   map.entities.push(pinme);  // put on map
-  map.setView({center: loc,  // recentre map to my location
-               zoom: 10 }); }
-
-function ft(tcurr, tnext) 
+  map.setView({center: loc, zoom: 10 }); } // recentre map to my location
+               
+function ft(tcurr, tnext) // check for a valid 3-letter word 
     {text = document.getElementById(tcurr).value;
      if (text.length == 3) 
          {if (check(text)) {document.getElementById(tnext).focus(); } } }
 
-function check(tex) {     
-  for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return true;} }
-  putmessage("Word not found: "+ tex);
-  return false; }
+function check(tex)      
+    {for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return true;} }
+     putmessage("Word not found: "+ tex);
+     return false; }
 
 </script>
 
@@ -245,7 +231,6 @@ function check(tex) {
   function reporttype() {
     if (mobile) {putmessage("Mobile device");}
     else {putmessage("Desktop device");} }
-	
 </script>
 	
 <script type='text/javascript'> // functions for coding and decoding
@@ -424,11 +409,12 @@ function hextomem(hexcode)
      for (let i = 0; i < 6; i++) 
        {num = parseInt(hexcode.substr(2*i,2),16);
         memcode += words[num];
-        if (i == 0) {memcode += "."} // add standard separators
-        if (i == 1) {memcode += "."} 
-        if (i == 2) {memcode += "-"} 
-        if (i == 3) {memcode += "."} 
-        if (i == 4) {memcode += "."} } 
+	if (i < 5) {memcode += "..-..".substr(i,1)} // add standard separators
+//         {memcode += "."} 
+  //      if (i == 1) {memcode += "."} 
+ //       if (i == 2) {memcode += "-"} 
+ //       if (i == 3) {memcode += "."} 
+ //       if (i == 4) {memcode += "."} } 
      return memcode; } 
 
 function memtohex(memcode) // convert memcode to hexcode
