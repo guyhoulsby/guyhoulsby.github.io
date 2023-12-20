@@ -96,8 +96,9 @@ function putmem() {
   document.getElementById("t6").value = memcode.substr(20,3); }
 function checkvalidword(box) {
   tex = document.getElementById(box).value.toLowerCase();
-  found = check(tex);
-  if (found) {return tex;}
+//  found = check(tex);
+//  if (found) {return tex;}
+  if (check(tex)) {return tex;}
   else {valid = false; return "null";} } 
 
 function gethex() {
@@ -188,7 +189,7 @@ function showError(error) {
 	
 function putPos(position) {
   clearmessage();
-  found = true;
+  //found = true;
   lat = position.coords.latitude;
   lon = position.coords.longitude;
   putlatlong(lat, lon);
