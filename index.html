@@ -224,17 +224,17 @@ function putPos(position) {
 function ft(tcurr, tnext) {text = document.getElementById(tcurr).value;
 			   if (text.length == 3) {check(text);
 						  document.getElementById(tnext).focus(); } }
-function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
-								      document.getElementById("t2").focus(); } }
-function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
-								      document.getElementById("t3").focus(); } }
-function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
-								      document.getElementById("t4").focus(); } }
-function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
-								      document.getElementById("t5").focus(); } }
-function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
-								      document.getElementById("t6").focus(); } }
-function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
+//function ft1() {if (document.getElementById("t1").value.length == 3) {check(document.getElementById("t1").value);
+//								      document.getElementById("t2").focus(); } }
+//function ft2() {if (document.getElementById("t2").value.length == 3) {check(document.getElementById("t2").value);
+//								      document.getElementById("t3").focus(); } }
+//function ft3() {if (document.getElementById("t3").value.length == 3) {check(document.getElementById("t3").value);
+//								      document.getElementById("t4").focus(); } }
+//function ft4() {if (document.getElementById("t4").value.length == 3) {check(document.getElementById("t4").value);
+//								      document.getElementById("t5").focus(); } }
+//function ft5() {if (document.getElementById("t5").value.length == 3) {check(document.getElementById("t5").value);
+//								      document.getElementById("t6").focus(); } }
+//function ft6() {if (document.getElementById("t6").value.length == 3) {check(document.getElementById("t6").value); } }
 
 function check(tex) {     
   for (let j = 0; j < 256; j++) {if (tex.toLowerCase() == words[j]) {return;} }
@@ -472,11 +472,11 @@ function hextoquad(hexcode) {
    <br>
    <input class="texmem" id="t1" name="t1" oninput=ft("t1","t2")> <b>.</b>
    <input class="texmem" id="t2" name="t2" oninput=ft("t2","t3")> <b>.</b>
-   <input class="texmem" id="t3" name="t3" oninput=ft3()> 
-   <button onclick="fromMemCode()" class="button buttonvnarrow">... use</button><br>
-   <input class="texmem" id="t4" name="t4" oninput=ft4()> <b>.</b>
-   <input class="texmem" id="t5" name="t5" oninput=ft5()> <b>.</b>
-   <input class="texmem" id="t6" name="t6" oninput=ft6()> 
+   <input class="texmem" id="t3" name="t3" oninput=ft("t3","t4")> 
+   <button onclick="fromMemCode()" id="usemem" class="button buttonvnarrow">... use</button><br>
+   <input class="texmem" id="t4" name="t4" oninput=ft("t4","t5")> <b>.</b>
+   <input class="texmem" id="t5" name="t5" oninput=ft("t5","t6")> <b>.</b>
+   <input class="texmem" id="t6" name="t6" oninput=ft("t6","usemem")> 
    <button class="button buttonnarrow" onclick="putonmap()">Put on map</button><br>
    <label for="out_hex">HexCode:</label>
     <input input class="texgen" id="out_hex" name="out_hex">
