@@ -119,6 +119,7 @@ function getlatlong()
    lon = parseFloat(document.getElementById("out_lon").value)
    if (isNaN(lat)) {putmessage("Latitude invalid"); return false;}
    if (isNaN(lon)) {putmessage("Longitude invalid"); return false;}
+   if (lon > 360.0) {putmessage("Longitude invalid"); return false;}
    if (lon >= 180.0) {lon -= 360.0}
    if (lon < -180.0) {putmessage("Longitude invalid"); return false;}
    if (lon > 180.0)  {putmessage("Longitude invalid"); return false;}
