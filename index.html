@@ -131,21 +131,38 @@ function putlatlong(lat, long)
   {document.getElementById("out_lat").value = lat.toFixed(5);
    document.getElementById("out_lon").value = lon.toFixed(5); } 
 
+
+let visible_pins = []
+function clearpins() {
+  while(visible_pins.length > 0) {
+    let pin = visible_pins.pop();
+    map.entities.remove(pin);
+  }
+}
+function pinmoved() {
+  if (visible_pins.length == 0) {return true}
+  loc = pincode.getLocation()
+  last_loc = visible_pins[visible_pins.length - 1].getLocation()
+  if (Microsoft.Maps.Location.areEqual(last_loc, loc)) {return false}
+  return true
+}
 function putonmap() {
   clearmessage();
   getmem();
   if (!valid) {putmessage("Location not found");
                return;}
-  try {map.entities.remove(pincode);} // delete old pin if it exists
-  catch {}
   decode(memcode);
   loc = new Microsoft.Maps.Location(lat, lon)
   pincode = new Microsoft.Maps.Pushpin(loc,  // create pushpin
                                        {title: memcode, color: "blue", text: 'D' } );
-  map.entities.push(pincode);  // add to the map
-  map.setView({center: loc});
-  puthex(hexcode);
-  putlatlong(lat, lon); } 
+  if (pinmoved()){
+    map.entities.push(pincode);  // add to the map
+    visible_pins.push(pincode)
+    map.setView({center: loc});
+    puthex(hexcode);
+    putlatlong(lat, lon); 
+  }
+} 
 
 function fromLatLong() {
   clearmessage();
@@ -444,7 +461,8 @@ function hextoquad(hexcode) {
    <input class="texmem" id="t4" name="t4" oninput=ft("t4","t5")> <b>.</b>
    <input class="texmem" id="t5" name="t5" oninput=ft("t5","t6")> <b>.</b>
    <input class="texmem" id="t6" name="t6" oninput=ft("t6","usemem")> 
-   <button class="button buttonnarrow" onclick="putonmap()">Put on map</button><br>
+   <button class="button buttonnarrow" onclick="putonmap()">Put on map</button>
+   <button class="button buttonnarrow" onclick="clearpins()">Clear pins</button><br>
    <label for="out_hex">HexCode:</label>
     <input input class="texgen" id="out_hex" name="out_hex">
     <button onclick="fromHexCode()" class="button buttonvnarrow">... use</button><br>
