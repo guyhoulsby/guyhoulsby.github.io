@@ -74,6 +74,7 @@ function mapclick(e) {console.log('Map clicked');
 		      putmem();
 		      
                       try {map.entities.remove(linebox);} // delete old box if it exists
+		      catch {}
 		      sw = hexcode.substr(0,6) + "000000";
 		      ne = hexcode.substr(0,6) + "ffffff";
 		      quadcode = hextoquad(sw);
