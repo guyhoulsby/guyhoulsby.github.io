@@ -73,12 +73,12 @@ function mapclick(e) {console.log('Map clicked');
                       encode(lat, lon);
                       puthex(hexcode);
 		      putmem();
-  for (let j = 0; j < 4; j++) {
+  for (let j = 0; j < 6; j++) {
                       try {map.entities.remove(linebox[j]);} // delete old box if it exists
 		      catch {} }
-  for (let j = 0; j < 4; j++) {
-	              sw = hexcode.substr(0,4+2*j) + "000000000000".substr(0,8-2*j);
-		      ne = hexcode.substr(0,4+2*j) + "ffffffffffff".substr(0,8-2*j);
+  for (let j = 0; j < 6; j++) {
+	              sw = hexcode.substr(0,2+2*j) + "000000000000".substr(0,10-2*j);
+		      ne = hexcode.substr(0,2+2*j) + "ffffffffffff".substr(0,10-2*j);
 		      quadcode = hextoquad(sw);
                       quadtolatlong(quadcode);
 		      swlat = lat - 0.5*yran;
