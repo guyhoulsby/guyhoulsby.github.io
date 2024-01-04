@@ -72,6 +72,27 @@ function mapclick(e) {console.log('Map clicked');
                       encode(lat, lon);
                       puthex(hexcode);
 		      putmem();
+		      
+		      sw = memcode.substr(0,6) + "000000";
+		      ne = memcode.substr(0,6) + "ffffff";
+		      decode(sw);
+		      swlat = lat;
+		      swlong = long; 
+		      decode(ne);
+		      nelat = lat;
+		      nelong = long; 
+		      var coords = [new Microsoft.Maps.Location(swlat, swlong),
+				    new Microsoft.Maps.Location(swlat, nelong),
+				    new Microsoft.Maps.Location(nelat, nelong),
+				    new Microsoft.Maps.Location(nelat, swlong),
+	 			    new Microsoft.Maps.Location(swlat, swlong)];
+
+        //Create a polyline
+                      var line = new Microsoft.Maps.Polyline(coords, {strokeColor: 'red',
+                                                                      strokeThickness: 3});
+        //Add the polyline to map
+                      map.entities.push(line);
+		      
                       try {map.entities.remove(pin);} // delete old pin if it exists
                       catch {}
                       pin = new Microsoft.Maps.Pushpin(e.location, // create pushpin
