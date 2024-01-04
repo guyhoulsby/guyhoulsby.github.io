@@ -73,16 +73,18 @@ function mapclick(e) {console.log('Map clicked');
                       puthex(hexcode);
 		      putmem();
 		      
-		      sw = memcode.substr(0,6) + "000000";
-		      ne = memcode.substr(0,6) + "ffffff";
+		      sw = memcode.substr(0,3) + memcode.substr(4,3) + "000000";
+		      ne = memcode.substr(0,3) + memcode.substr(4,3) + "ffffff";
 		      decode(sw);
 		      swlat = lat;
 		      swlon = lon; 
 		      decode(ne);
 		      nelat = lat;
 		      nelon = lon; 
+       console.log(sw);
        console.log(swlat);
        console.log(swlon);
+       console.log(ne);
        console.log(nelat);
        console.log(nelon);
 		      var coords = [new Microsoft.Maps.Location(swlat, swlon),
@@ -472,7 +474,7 @@ function hextoquad(hexcode) {
 </script>
 
 <body>
-<H2>GTHcode</H2> Version: 1.14<br>
+<H2>GTHcode</H2> Version: 1.15<br>
    <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="copymem()" class="button buttonvnarrow">Copy</button>
    <button onclick="share()" class="button buttonvnarrow">Share</button>
