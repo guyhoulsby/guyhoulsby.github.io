@@ -73,12 +73,14 @@ function mapclick(e) {console.log('Map clicked');
                       puthex(hexcode);
 		      putmem();
 		      
-		      sw = memcode.substr(0,3) + memcode.substr(4,3) + "000000";
-		      ne = memcode.substr(0,3) + memcode.substr(4,3) + "ffffff";
-		      decode(sw);
+		      sw = hexcode.substr(0,6) + "000000";
+		      ne = hexcode.substr(0,6) + "ffffff";
+		      quadcode = hextoquad(sw);
+                      quadtolatlong(quadcode);
 		      swlat = lat;
 		      swlon = lon; 
-		      decode(ne);
+		      quadcode = hextoquad(ne);
+                      quadtolatlong(quadcode);
 		      nelat = lat;
 		      nelon = lon; 
        console.log(sw);
@@ -474,7 +476,7 @@ function hextoquad(hexcode) {
 </script>
 
 <body>
-<H2>GTHcode</H2> Version: 1.15<br>
+<H2>GTHcode</H2> Version: 1.16<br>
    <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="copymem()" class="button buttonvnarrow">Copy</button>
    <button onclick="share()" class="button buttonvnarrow">Share</button>
