@@ -73,32 +73,31 @@ function mapclick(e) {console.log('Map clicked');
                       puthex(hexcode);
 		      putmem();
 		      
+                      try {map.entities.remove(linebox);} // delete old box if it exists
 		      sw = hexcode.substr(0,6) + "000000";
 		      ne = hexcode.substr(0,6) + "ffffff";
 		      quadcode = hextoquad(sw);
                       quadtolatlong(quadcode);
-		      swlat = lat;
-		      swlon = lon; 
+		      swlat = lat - 0.5*yran;
+		      swlon = lon - 0.5*xran; 
 		      quadcode = hextoquad(ne);
                       quadtolatlong(quadcode);
-		      nelat = lat;
-		      nelon = lon; 
-       console.log(sw);
-       console.log(swlat);
-       console.log(swlon);
-       console.log(ne);
-       console.log(nelat);
-       console.log(nelon);
+		      nelat = lat + 0.5*yran;
+		      nelon = lon + 0.5*xran; 
+     //  console.log(sw);
+     //  console.log(swlat);
+     //  console.log(swlon);
+     //  console.log(ne);
+     //  console.log(nelat);
+     //  console.log(nelon);
 		      var coords = [new Microsoft.Maps.Location(swlat, swlon),
 				    new Microsoft.Maps.Location(swlat, nelon),
 				    new Microsoft.Maps.Location(nelat, nelon),
 				    new Microsoft.Maps.Location(nelat, swlon),
 	 			    new Microsoft.Maps.Location(swlat, swlon)];
 
-        //Create a polyline
-                      var line = new Microsoft.Maps.Polyline(coords, {strokeColor: 'red',
-                                                                      strokeThickness: 3});
-        //Add the polyline to map
+                      linebox = new Microsoft.Maps.Polyline(coords, {strokeColor: 'red',
+                                                                     strokeThickness: 1});
                       map.entities.push(line);
 		      
                       try {map.entities.remove(pin);} // delete old pin if it exists
@@ -476,7 +475,7 @@ function hextoquad(hexcode) {
 </script>
 
 <body>
-<H2>GTHcode</H2> Version: 1.16<br>
+<H2>GTHcode</H2> Version: 1.17<br>
    <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="copymem()" class="button buttonvnarrow">Copy</button>
    <button onclick="share()" class="button buttonvnarrow">Share</button>
