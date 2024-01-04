@@ -99,7 +99,7 @@ function mapclick(e) {console.log('Map clicked');
 
                       linebox = new Microsoft.Maps.Polyline(coords, {strokeColor: 'red',
                                                                      strokeThickness: 1});
-                      map.entities.push(line);
+                      map.entities.push(linebox);
 		      
                       try {map.entities.remove(pin);} // delete old pin if it exists
                       catch {}
@@ -164,16 +164,14 @@ let visible_pins = []
 function clearpins() {
   while(visible_pins.length > 0) {
     let pin = visible_pins.pop();
-    map.entities.remove(pin);
-  }
-}
+    map.entities.remove(pin); } }
 function pinmoved() {
   if (visible_pins.length == 0) {return true}
   loc = pincode.getLocation()
   last_loc = visible_pins[visible_pins.length - 1].getLocation()
   if (Microsoft.Maps.Location.areEqual(last_loc, loc)) {return false}
-  return true
-}
+  return true }
+	
 function putonmap() {
   clearmessage();
   getmem();
