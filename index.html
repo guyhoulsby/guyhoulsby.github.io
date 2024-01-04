@@ -77,15 +77,15 @@ function mapclick(e) {console.log('Map clicked');
 		      ne = memcode.substr(0,6) + "ffffff";
 		      decode(sw);
 		      swlat = lat;
-		      swlong = long; 
+		      swlon = lon; 
 		      decode(ne);
 		      nelat = lat;
-		      nelong = long; 
-		      var coords = [new Microsoft.Maps.Location(swlat, swlong),
-				    new Microsoft.Maps.Location(swlat, nelong),
-				    new Microsoft.Maps.Location(nelat, nelong),
-				    new Microsoft.Maps.Location(nelat, swlong),
-	 			    new Microsoft.Maps.Location(swlat, swlong)];
+		      nelon = lon; 
+		      var coords = [new Microsoft.Maps.Location(swlat, swlon),
+				    new Microsoft.Maps.Location(swlat, nelon),
+				    new Microsoft.Maps.Location(nelat, nelon),
+				    new Microsoft.Maps.Location(nelat, swlon),
+	 			    new Microsoft.Maps.Location(swlat, swlon)];
 
         //Create a polyline
                       var line = new Microsoft.Maps.Polyline(coords, {strokeColor: 'red',
@@ -469,7 +469,7 @@ function hextoquad(hexcode) {
 </script>
 
 <body>
-<H2>GTHcode</H2> Version: 1.13<br>
+<H2>GTHcode</H2> Version: 1.14<br>
    <button onclick="getLocation()" class="button buttonwide">Get my location</button>
    <button onclick="copymem()" class="button buttonvnarrow">Copy</button>
    <button onclick="share()" class="button buttonvnarrow">Share</button>
