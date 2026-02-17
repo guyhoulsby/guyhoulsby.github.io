@@ -1,78 +1,221 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <title>GeoCode</title>
+    
+    <!-- Azure Maps SDK -->
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css" />
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    
+    <style>
+      body {font-family: arial; }
+      .button {background-color: #4CAF50; /* Green */
+               border: none;
+               color: white;
+               padding: 10px 10px;
+               text-align: center;
+               text-decoration: none;
+               display: inline-block;
+               font-size: 16px;
+               margin: 0px 0px;
+               cursor: pointer; }
+      .button1 {width: 160px;
+                height: 34px; }
+    </style>
+</head>
 
-<style>
-  body {font-family: arial; }
-  .button {background-color: #4CAF50; /* Green */
-           border: none;
-           color: white;
-           padding: 10px 10px;
-           text-align: center;
-           text-decoration: none;
-           display: inline-block;
-           font-size: 16px;
-           margin: 0px 0px;
-           cursor: pointer; }
-  .button1 {width: 160px;
-            height: 34px; }
-</style>
+<body>
+<h2>GeoCode</h2>
+<table style="width:100%">
+  <tr>
+    <td style=width:50%><b>MemCode from Lat,Long</b></td>
+    <td style=width:50%><b>Lat,Long from MemCode</b></td>
+  </tr>
+</table>
+<table style="width:100%">
+  <tr>
+    <td style="width:20%"><label for="in_lat">Latitude:</label></td>
+    <td style="width:30%"><input type="text" id="in_lat" name="in_lat"></td>
+    <td><label for="out_lat">Latitude:</label></td>
+    <td><input type="text" id="out_lat" name="out_lat" disabled></td>
+  </tr>
+  <tr>
+    <td><label for="in_long">Longitude:</label></td>
+    <td><input type="text" id="in_long" name="in_long"></td>
+    <td><label for="out_long">Longitude:</label></td>
+    <td><input type="text" id="out_long" name="out_long" disabled></td>
+  </tr>
+  <tr>
+    <td><label for="out_code">MemCode:</label></td>
+    <td><input type="text" id="out_mem" name="out_mem" disabled></td>
+    <td style="width:20%"><label for="in_mem">MemCode:</label></td>
+    <td style="width:30%"><input type="text" id="in_mem" name="in_mem"></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><button onclick="getmemcode()" class="button button1">Get MemCode</button></td>
+    <td></td>
+    <td><button onclick="getlatlong()" class="button button1">Get Lat,Long</button></td>
+  </tr>
+</table>
+<table style="width:100%">
+  <tr>
+    <td style="width:50%"><b>Map coordinates</b></td>
+    <td style="width:50%"><b>My location</b></td>
+  </tr>
+</table>
+<table style="width:100%">
+  <tr>
+    <td style="width:20%"><label for="out_map_lat">Latitude:</label></td>
+    <td style="width:30%"><input type="text" id="out_map_lat" name="out_map_lat" disabled></td>
+    <td style="width:20%"><label for="out_me_lat">Latitude:</label></td>
+    <td style="width:30%"><input type="text" id="out_me_lat" name="out_me_lat" disabled></td>
+  </tr>
+  <tr>
+    <td><label for="out_map_long">Longitude:</label></td>
+    <td><input type="text" id="out_map_long" name="out_map_long" disabled></td>
+    <td><label for="out_me_long">Longitude:</label></td>
+    <td><input type="text" id="out_me_long" name="out_me_long" disabled></td>
+  </tr>
+  <tr>
+    <td><label for="out_map_hexcode">HexCode:</label></td>
+    <td><input type="text" id="out_map_hexcode" name="out_map_hexcode" disabled></td>
+    <td><label for="out_me_hexcode">HexCode:</label></td>
+    <td><input type="text" id="out_me_hexcode" name="out_me_hexcode" disabled></td>
+  </tr>
+  <tr>
+    <td><label for="out_map_memcode">MemCode:</label></td>
+    <td><input type="text" id="out_map_memcode" name="out_map_memcode" disabled></td>
+    <td><label for="out_me_memcode">MemCode:</label></td>
+    <td><input type="text" id="out_me_memcode" name="out_me_memcode" disabled></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><button onclick="getLocation()" class="button button1">Get my location</button></td>
+  </tr>
+</table>
 
-<script type='text/javascript'
-    src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ApppkfsmB0HMigUqt5D1ZkvEZTwF_DV6S8JnwXMb6-reeiOge2Gb87_jJHwvEbsl' async defer>
-</script>
+<b>Click anywhere on the map to show code:</b>
+<div id="myMap" style="position:relative;width:100%;height:50vh;"></div>
+Version: 2.0 (Azure Maps)
 
 <script type='text/javascript'>
-//var map = new Microsoft.Maps.Map('#myMap');
+var map;
+var pin, pinme;
+
 function GetMap() {
-    map = new Microsoft.Maps.Map('#myMap');
-    map.setView({center: new Microsoft.Maps.Location(54.82, -4.19),
-                 zoom: 10 });
-    Microsoft.Maps.Events.addHandler(map, 'click', function(e) // event handler for map click
-		              {console.log('Map clicked');
-		               document.getElementById("out_map_lat").value = e.location.latitude.toFixed(5);		
-	                       document.getElementById("out_map_long").value = e.location.longitude.toFixed(5);
-                               encode(e.location.latitude, e.location.longitude);
-                               document.getElementById("out_map_hexcode").value = hexcode;
-                               document.getElementById("out_map_memcode").value = code;
-                               try {map.entities.remove(pin);} // delete old pin if it exists
-                               catch {}
-                               pin = new Microsoft.Maps.Pushpin(e.location,  //Create custom Pushpin
-                                                                    {title: code,
-                                                                     text: '1' } );
-                               map.entities.push(pin); }); //Add the pushpin to the map
-    }
+    // Initialize the map
+    map = new atlas.Map('myMap', {
+        center: [-4.19, 54.82],  // Azure Maps uses [longitude, latitude]
+        zoom: 10,
+        language: 'en-US',
+        authOptions: {
+            authType: 'subscriptionKey',
+            subscriptionKey: 'KEY'  // Replace with your key
+        }
+    });
+
+    // Wait for map to be ready
+    map.events.add('ready', function() {
+        // Add click event handler
+        map.events.add('click', function(e) {
+            console.log('Map clicked');
+            var position = e.position;  // [longitude, latitude]
+            
+            document.getElementById("out_map_lat").value = position[1].toFixed(5);		
+            document.getElementById("out_map_long").value = position[0].toFixed(5);
+            
+            encode(position[1], position[0]);
+            document.getElementById("out_map_hexcode").value = hexcode;
+            document.getElementById("out_map_memcode").value = code;
+            
+            // Remove old pin if it exists
+            if (pin) {
+                map.markers.remove(pin);
+            }
+            
+            // Create new pin with title showing the code
+            pin = new atlas.HtmlMarker({
+                position: position,
+                text: '1',
+                htmlContent: '<div style="background-color: red; color: white; padding: 5px; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; font-weight: bold;">1</div>'
+            });
+            
+            // Add popup to show the code
+            var popup = new atlas.Popup({
+                content: '<div style="padding:10px">' + code + '</div>',
+                position: position
+            });
+            
+            map.markers.add(pin);
+            popup.open(map);
+            
+            // Store popup reference to close it on next click
+            if (window.currentPopup) {
+                window.currentPopup.close();
+            }
+            window.currentPopup = popup;
+        });
+    });
+}
 
 function getmemcode() {
   encode(document.getElementById("in_lat").value, document.getElementById("in_long").value);
-  document.getElementById("out_mem").value = code; }
+  document.getElementById("out_mem").value = code; 
+}
 
 function getlatlong() {
   decode(document.getElementById("in_mem").value);
   document.getElementById("out_lat").value  = lat.toFixed(5);
-  document.getElementById("out_long").value = long.toFixed(5); }
+  document.getElementById("out_long").value = long.toFixed(5); 
+}
 
 function getLocation() {
-  if (navigator.geolocation) {navigator.geolocation.getCurrentPosition(putPos, showError);} 
-  else {x.innerHTML = "Geolocation is not supported by this browser.";}
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(putPos, showError);
+  } 
+  else {
+      alert("Geolocation is not supported by this browser.");
   }
+}
+
 function putPos(position) {
   document.getElementById("out_me_lat").value = position.coords.latitude;
   document.getElementById("out_me_long").value = position.coords.longitude;
+  
   encode(position.coords.latitude, position.coords.longitude);
   document.getElementById("out_me_hexcode").value = hexcode;
   document.getElementById("out_me_memcode").value = code;
 
-  try {map.entities.remove(pinme);} // delete old pin if it exists
-  catch {}
-  loc = new Microsoft.Maps.Location(document.getElementById("out_me_lat").value, 
-                                    document.getElementById("out_me_long").value)
-  pinme = new Microsoft.Maps.Pushpin(loc,  //Create custom Pushpin
-                                     {title: code,
-                                      text: 'M' } );
-  map.entities.push(pinme);  //Add the pushpin to the map
-  map.setView({center: loc,  //Recentre map to me
-               zoom: 10 });
+  // Remove old pin if it exists
+  if (pinme) {
+      map.markers.remove(pinme);
   }
+  
+  // Create new pin
+  pinme = new atlas.HtmlMarker({
+      position: [position.coords.longitude, position.coords.latitude],
+      text: 'M',
+      htmlContent: '<div style="background-color: green; color: white; padding: 5px; border-radius: 50%; width: 30px; height: 30px; text-align: center; line-height: 30px; font-weight: bold;">M</div>'
+  });
+  
+  // Add popup to show the code
+  var popup = new atlas.Popup({
+      content: '<div style="padding:10px">' + code + '</div>',
+      position: [position.coords.longitude, position.coords.latitude]
+  });
+  
+  map.markers.add(pinme);
+  popup.open(map);
+  
+  map.setCamera({
+      center: [position.coords.longitude, position.coords.latitude],
+      zoom: 10
+  });
+}
 
 const words = ["ace","act","add","age", "aid","aim","air","all",
                "and","ant","ape","arm", "art","ash","ask","ate",
@@ -240,104 +383,27 @@ function decode(memcode) {
   }
 
 function showError(error) {
+  var message = "";
   switch(error.code) {
     case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
+      message = "User denied the request for Geolocation.";
       break;
     case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
+      message = "Location information is unavailable.";
       break;
     case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
+      message = "The request to get user location timed out.";
       break;
     case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
+      message = "An unknown error occurred.";
       break;
-    }
   }
+  alert(message);
+}
+
+// Initialize map when page loads
+window.onload = GetMap;
 </script>
 
-<body>
-<h2>GeoCode</h2>
-<table style="width:100%">
-  <tr>
-    <td style=width:50%><b>MemCode from Lat,Long</b></td>
-    <td style=width:50%><b>Lat,Long from MemCode</b></td>
-  </tr>
-</table>
-<table style="width:100%">
-  <tr>
-    <td style="width:20%"><label for="in_lat">Latitude:</label></td>
-    <td style="width:30%"><input type="text" id="in_lat" name="in_lat"></td>
-    <td><label for="out_lat">Latitude:</label></td>
-    <td><input type="text" id="out_lat" name="out_lat" disabled></td>
-  </tr>
-  <tr>
-    <td><label for="in_long">Longitude:</label></td>
-    <td><input type="text" id="in_long" name="in_long"></td>
-    <td><label for="out_long">Longitude:</label></td>
-    <td><input type="text" id="out_long" name="out_long" disabled></td>
-  </tr>
-  <tr>
-    <td><label for="out_code">MemCode:</label></td>
-    <td><input type="text" id="out_mem" name="out_mem" disabled></td>
-    <td style="width:20%"><label for="in_mem">MemCode:</label></td>
-    <td style="width:30%"><input type="text" id="in_mem" name="in_mem"></td>
-  </tr>
-    <td></td>
-    <td><button onclick="getmemcode()" class="button button1">Get MemCode</button></td>
-    <td></td>
-    <td><button onclick="getlatlong()" class="button button1">Get Lat,Long</button></td>
-  </tr>
-</table>
-<table style="width:100%">
-  <tr>
-    <td style="width:50%"><b>Map coordinates</b></td>
-    <td style="width:50%"><b>My location</b></td>
-  </tr>
-</table>
-<table style="width:100%">
-  <tr>
-    <td style="width:20%"><label for="out_map_lat">Latitude:</label></td>
-    <td style="width:30%"><input type="text" id="out_map_lat" name="out_map_lat" disabled></td>
-    <td style="width:20%"><label for="out_me_lat">Latitude:</label></td>
-    <td style="width:30%"><input type="text" id="out_me_lat" name="out_me_lat" disabled></td>
-  </tr>
-  <tr>
-    <td><label for="out_map_long">Longitude:</label></td>
-    <td><input type="text" id="out_map_long" name="out_map_long" disabled></td>
-    <td><label for="out_me_long">Longitude:</label></td>
-    <td><input type="text" id="out_me_long" name="out_me_long" disabled></td>
-  </tr>
-  <tr>
-    <td><label for="out_map_hexcode">HexCode:</label></td>
-    <td><input type="text" id="out_map_hexcode" name="out_map_hexcode" disabled></td>
-    <td><label for="out_me_hexcode">HexCode:</label></td>
-    <td><input type="text" id="out_me_hexcode" name="out_me_hexcode" disabled></td>
-  </tr>
-  <tr>
-    <td><label for="out_map_memcode">MemCode:</label></td>
-    <td><input type="text" id="out_map_memcode" name="out_map_memcode" disabled></td>
-    <td><label for="out_me_memcode">MemCode:</label></td>
-    <td><input type="text" id="out_me_memcode" name="out_me_memcode" disabled></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><button onclick="getLocation()" class="button button1">Get my location</button></td>
-  </tr>
-</table>
-<!--
-<table>
-  <tr>
-    <td>Test button:</td>
-    <td><button onclick="test()" class="button button1">Test</button></td>
-  </tr>
-</table> -->
-
-<b>Click anywhere on the map to show code:</b>
-<div id="myMap" style="position:relative;width:100%;height:50vh;"></div> <!-- width and height on screen -->
-Version: 1.0
 </body>
 </html>
